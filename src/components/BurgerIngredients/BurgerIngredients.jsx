@@ -1,6 +1,9 @@
 import React, {useCallback, useState} from "react";
 
 import {Tab, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import {ingredientType} from "../../types/ingredientType";
+import {ingredientNav} from '../../types/ingredientNav'
 
 import stylesIngredients from './BurgerIngredients.module.css'
 
@@ -14,6 +17,7 @@ const Tabs =() => {
     </div>
   );
 };
+
 
 export const BurgerIngredients = () => {
   return (
@@ -33,4 +37,7 @@ export const BurgerIngredients = () => {
       </div>
     </div>
   );
+};
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientType).isRequired,
 };
