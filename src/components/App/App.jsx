@@ -2,17 +2,20 @@ import React from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/appHeader'
 import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
-import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
+
+
 
 
 
 function App() {
+
   return (
-    <div className={appStyles.App}>
+    <div className={appStyles.app}>
       <AppHeader/>
       <main className={appStyles.main}>
-        <BurgerIngredients />
-          {/*<BurgerConstructor/>*/}
+          <BurgerIngredients/>
+          <BurgerConstructor/>
       </main>
     </div>
   );

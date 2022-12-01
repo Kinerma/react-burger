@@ -1,0 +1,19 @@
+.image {
+
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+}
+
+.name {
+    min-width: 272px;
+    text-align: center;
+}
+
+.ingredient {
+  max-width: 272px;
+}
