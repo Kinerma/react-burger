@@ -7,8 +7,7 @@ import {data} from "../../utils/data";
 
 const BurgerElements = ({ingredient}) => {
     const bunList = ingredient.filter(ingredient => ingredient.type === 'bun')
-    const sauceList = ingredient.filter(ingredient => ingredient.type === 'sauce')
-    const mainList = ingredient.filter(ingredient => ingredient.type === 'main')
+
     return (
         <div className={`ml-4`}>
             <div className={`pl-8`}>
@@ -27,9 +26,9 @@ const BurgerElements = ({ingredient}) => {
                     <div className={`mb-4 ${ElementStyles.bun}`}>
                       <DragIcon type={"primary"} />
                       <ConstructorElement
-                         text={sauceList[0].name}
-                         thumbnail={sauceList[0].image}
-                         price={sauceList[0].price}
+                         text={ingredient.name}
+                         thumbnail={ingredient.image}
+                         price={ingredient.price}
                       />
                     </div>
                   );
