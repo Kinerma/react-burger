@@ -1,0 +1,10 @@
+.button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.column {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
