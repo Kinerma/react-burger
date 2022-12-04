@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import PropTypes from "prop-types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientStyle from '../Ingredient/Ingredient.module.css'
+import ingredientStyle from '../Ingredient/Ingredient.module.css'
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {ingredientType} from "../../utils/typesIngredients";
+
 
 const Ingredient = ({ingredient}) => {
     const [modalState, setModalState] = useState(false)
@@ -14,16 +15,20 @@ const Ingredient = ({ingredient}) => {
         setModalState(false)
     }
     return (
-      <div className={`ml-4 mr-2 mt-6 mb-8 ${IngredientStyle.ingredient}`}>
-          <img src={ingredient.image} alt="" className={`pl-4 pr-4 ${IngredientStyle.image}`} onClick={handleOpenModal} />
-          <div className={`p-1 ${IngredientStyle.price}`}>
+      <div className={`ml-4 mr-2 mt-6 mb-8 ${ingredientStyle.ingredient}`}>
+          <img src={ingredient.image} alt="" className={`pl-4 pr-4 ${ingredientStyle.image}`} onClick={handleOpenModal} />
+          <div className={`p-1 ${ingredientStyle.price}`}>
               <p className={`text text_type_digits-default`}>{ingredient.price}</p>
               <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${IngredientStyle.name}`}>{ingredient.name}</p>
+          <p className={`text text_type_main-default ${ingredientStyle.name}`}>{ingredient.name}</p>
           {modalState && <Modal handleModalClose={handleCloseModal}><IngredientDetails ingredient={ingredient} /></Modal>}
      </div>
     );
 };
+
+Ingredient.propTypes = {
+    ingredient: ingredientType.isRequired
+}
 
 export default Ingredient;

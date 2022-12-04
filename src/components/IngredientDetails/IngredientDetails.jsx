@@ -1,12 +1,11 @@
 import React from 'react';
 import detailsStyles from '../IngredientDetails/IngredientDetails.module.css'
-import {Modal} from '../Modal/Modal'
-import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/typesIngredients";
 
 
 const IngredientDetails = ({ingredient}) => {
     return (
-        <div className={`pt-10 pb-15 ${detailsStyles.modal}`}>
+        <div className={`pt-10 pb-15`}>
             <h2 className={`ml-10 mr-10 text text_type_main-large`}>Детали ингредиента</h2>
             <div className={`mr-30 ml-30 ${detailsStyles.image}`}>
                 <img src={ingredient.image} alt={`Ингридиент`}/>
@@ -33,5 +32,9 @@ const IngredientDetails = ({ingredient}) => {
         </div>
     );
 };
+
+IngredientDetails.propTypes = {
+    ingredient: ingredientType.isRequired
+}
 
 export default IngredientDetails;

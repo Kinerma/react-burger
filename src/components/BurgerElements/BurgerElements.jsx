@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import ElementStyles from '../BurgerElements/BurgerElements.module.css'
-import {data} from "../../utils/data";
+import elementStyles from '../BurgerElements/BurgerElements.module.css'
+import {ingredientType} from "../../utils/typesIngredients";
 
 
-const BurgerElements = ({ingredient}) => {
-    const bunList = ingredient.filter(ingredient => ingredient.type === 'bun')
+const BurgerElements = ({ingredients}) => {
+    const bunList = ingredients.filter(ingredient => ingredient.type === 'bun')
 
     return (
         <div className={`ml-4`}>
@@ -19,11 +19,11 @@ const BurgerElements = ({ingredient}) => {
                   thumbnail={bunList[0].image}
               />
             </div>
-            <div className={`mt-4 pr-2 ${ElementStyles.element}`}>
-              {data.map((ingredient) => {
+            <div className={`mt-4 pr-2 ${elementStyles.element}`}>
+              {ingredients.map((ingredient) => {
                 if (ingredient.type !== 'bun') {
                   return (
-                    <div className={`mb-4 ${ElementStyles.bun}`}>
+                    <div className={`mb-4 ${elementStyles.bun}`}  key={ingredient._id}>
                       <DragIcon type={"primary"} />
                       <ConstructorElement
                          text={ingredient.name}
@@ -47,5 +47,9 @@ const BurgerElements = ({ingredient}) => {
         </div>
     );
 };
+
+BurgerElements.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientType.isRequired)
+}
 
 export default BurgerElements;

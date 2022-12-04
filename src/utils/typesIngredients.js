@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const URL = 'https://norma.nomoreparties.space/api/ingredients'
-
 export const IngredientName = [
     {name: 'bun', rename: 'Булки'},
     {name: 'sauce', rename: 'Соусы'},

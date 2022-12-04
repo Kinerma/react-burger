@@ -1,27 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/appHeader'
 import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import {data} from "../../utils/data";
-
-
-
-
-
+import getIngredient from '../../Api/api'
 
 function App() {
-
+    const [ingredients, setIngredients] = useState([])
+    useEffect(() => {
+      getIngredient()
+          .then(data => setIngredients(data.data))
+          .catch(error => console.log(error))
+    })
   return (
     <div className={appStyles.app}>
       <AppHeader/>
-      <main className={appStyles.main}>
-          <BurgerIngredients/>
-          <BurgerConstructor/>
-      </main>
+        {ingredients.length && <main className={appStyles.main}>
+            <BurgerIngredients ingredients={ingredients} />
+            <BurgerConstructor ingredients={ingredients} />
+        </main>}
     </div>
   );
 };

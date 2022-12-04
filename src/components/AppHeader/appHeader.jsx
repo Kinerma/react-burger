@@ -1,7 +1,5 @@
 import React from "react";
-
 import {Logo, ListIcon, ProfileIcon, BurgerIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
-
 import styleAppHeader from './appHeader.module.css'
 
 function BurgerConstructor() {

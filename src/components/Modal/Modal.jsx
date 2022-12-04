@@ -38,4 +38,9 @@ const Modal = ({children, handleModalClose}) => {
     ), modalRoot);
 };
 
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  handleModalClose: PropTypes.func.isRequired
+}
+
 export default Modal;
