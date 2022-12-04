@@ -4,7 +4,7 @@ import styleAppHeader from './appHeader.module.css'
 
 function BurgerConstructor() {
   return (
-    <button className={`pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${styleAppHeader.button}`}>
+    <button className={`pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${styleAppHeader.button_active} ${styleAppHeader.button}`}>
       <div className={`mr-2 ${styleAppHeader.container}`}>
         <BurgerIcon type="primary" />
       </div>
@@ -15,7 +15,7 @@ function BurgerConstructor() {
 
 function OrderFeed() {
   return (
-    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button}`}>
+    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_order}`}>
       <div className={`mr-2 ${styleAppHeader.container}`}>
         <ListIcon type="secondary" />
       </div>
@@ -26,7 +26,7 @@ function OrderFeed() {
 
 function PersonalAccount() {
   return (
-    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button}`}>
+    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
       <div className={`mr-2 ${styleAppHeader.container}`}>
         <ProfileIcon type="secondary" />
       </div>
