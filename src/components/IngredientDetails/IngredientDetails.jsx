@@ -8,7 +8,7 @@ const IngredientDetails = ({ingredient}) => {
         <div className={`pt-10 pb-15`}>
             <h2 className={`ml-10 mr-10 text text_type_main-large`}>Детали ингредиента</h2>
             <div className={`mr-30 ml-30 ${detailsStyles.image}`}>
-                <img src={ingredient.image} alt={`Ингридиент`}/>
+                <img src={ingredient.image} alt={ingredient.name}/>
             </div>
             <p className={`text text_type_main-medium mt-4 mr-25 ml-25 ${detailsStyles.name}`} children={ingredient.name}/>
             <ul className={`text text_type_main-default text_color_inactive mt-8 mr-25 ml-25 ${detailsStyles.information}`}>

@@ -1,7 +1,3 @@
-.image {
-
-}
-
 .price {
     display: flex;
     justify-content: center;
@@ -17,3 +13,4 @@
 .ingredient {
   max-width: 272px;
 }
+

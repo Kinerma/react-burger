@@ -29,30 +29,31 @@ export const BurgerIngredients = ({ingredients}) => {
     <section className='mt-10'>
       <h1 className='text mb-5 text_type_main-large'>Соберите бургер</h1>
       <Tabs />
-      <div className={`mt-10 ${burgerStyles.ingredients}`}>
-        <div id={`bun`}>
+      <ul className={`mt-10 ${burgerStyles.ingredients}`}>
+        <li id={`bun`}>
           <h2 className='mt-10 text text_type_main-medium'>Булки</h2>
           <div className={`${burgerStyles.column}`}>
               {ingredients.filter(item => item.type === 'bun').map(ingredient => <Ingredient key={ingredient._id} ingredient={ingredient} />)}
           </div>
-        </div>
-        <div id={`sauce`}>
+        </li>
+        <li id={`sauce`}>
           <h2 className='mt-10 text text_type_main-medium'>Соусы</h2>
           <div className={`${burgerStyles.column}`}>
               {ingredients.filter(item => item.type === 'sauce').map(ingredient => <Ingredient key={ingredient._id} ingredient={ingredient} />)}
           </div>
-        </div>
-        <div id={`main`}>
+        </li>
+        <li id={`main`}>
           <h2 className='mt-10 text text_type_main-medium'>Начинки</h2>
           <div className={`${burgerStyles.column}`}>
               {ingredients.filter(item => item.type === 'main').map(ingredient => <Ingredient key={ingredient._id} ingredient={ingredient} />)}
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType.isRequired)
+    ingredients: PropTypes.arrayOf(ingredientType).isRequired
 }
+
