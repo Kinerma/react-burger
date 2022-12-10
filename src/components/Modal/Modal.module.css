@@ -1,0 +1,35 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s linear;
+}
+
+.modalOpen {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.3s linear;
+}
+
+.closeButton {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    right: 40px;
+    top: 50px;
+    cursor: pointer;
+}
+
+.content {
+    position: relative;
+    background: #1c1c21;
+    border-radius: 40px;
+    z-index: 5;
+}

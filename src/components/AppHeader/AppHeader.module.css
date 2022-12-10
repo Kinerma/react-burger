@@ -1,0 +1,40 @@
+.button {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.button_active {
+    color: #ffffff;
+}
+
+.button_account {
+    margin-left: 289px;
+}
+
+.button_order {
+    margin-right: 112px;
+}
+
+.container {
+    display: flex;
+}
+
+.header {
+    width: 100%;
+    background: #1c1c21;
+    display: flex;
+    justify-content: center;
+}
+
+.header_navigation {
+    max-width: 2200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_bar {
+    display: flex;
+    align-items: center;
+}
