@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, {useContext} from 'react';
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from '../BurgerElements/BurgerElements.module.css'
-import {ingredientType} from "../../utils/typesIngredients";
+import BurgerContext from "../../context/BurgerContext";
 
 
-const BurgerElements = ({ingredients}) => {
+const BurgerElements = () => {
+    const {ingredients} = useContext(BurgerContext)
     const bunList = ingredients.filter(ingredient => ingredient.type === 'bun')
 
     return (
@@ -48,8 +48,5 @@ const BurgerElements = ({ingredients}) => {
     );
 };
 
-BurgerElements.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
-}
 
 export default BurgerElements;
