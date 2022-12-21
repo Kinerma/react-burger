@@ -13,6 +13,12 @@ const BurgerConstructor = () => {
     const {ingredients} = useContext(BurgerContext)
     const [id, setId] = useState(null)
 
+    function burgerPrice(ingredients) {
+        const bunPrice = ingredients.filter((ingredient) =>ingredient.type === 'bun')[0].price * 2
+        const ingredientPrice = ingredients.filter((ingredient) =>ingredient.type !== 'bun').reduce((a,b) => a + b.price, 0)
+        return bunPrice + ingredientPrice
+    };
+
     function handleCreateOrder() {
         const newIngredient = ingredients.filter(item => item.type !== 'bun').map(ingredient => ingredient._id)
         const Bun = ingredients.filter(item => item.type === 'bun')[0]._id
@@ -29,7 +35,7 @@ const BurgerConstructor = () => {
             <BurgerElements />
             <div className={`mt-10 mr-4 ${constructorStyles.button}`}>
             <div className={`mr-10 ${constructorStyles.column}`}>
-              <p className={`text text_type_digits-medium`}>610</p>
+              <p className={`text text_type_digits-medium`}>{burgerPrice(ingredients)}</p>
               <CurrencyIcon type={"primary"} />
             </div>
             <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder}>
@@ -40,5 +46,6 @@ const BurgerConstructor = () => {
         </section>
     );
 };
+
 
 export default BurgerConstructor;
