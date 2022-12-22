@@ -1,20 +1,14 @@
+import {checkResponse} from '../utils/typesIngredients'
+
+const BASE_URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients'
+const BASE_URL_ORDERS = 'https://norma.nomoreparties.space/api/orders'
 
 export const getIngredient = () => {
-  return fetch (`https://norma.nomoreparties.space/api/ingredients`).then(res => {
-      if (res.ok) {
-          return res.json()
-      }
-      return Promise.reject(res.status)
-  })
+  return fetch (BASE_URL_INGREDIENTS).then(checkResponse)
 };
 export const createOrder = (ingredienIdtList) => {
-    return fetch(`https://norma.nomoreparties.space/api/orders`, {method:'POST', headers: {"Content-type": 'application/json'}, body: JSON.stringify({
+    return fetch(BASE_URL_ORDERS, {method:'POST', headers: {"Content-type": 'application/json'}, body: JSON.stringify({
             "ingredients": ingredienIdtList
-        })}).then(res => {
-        if (res.ok) {
-            return res.json()
-        }
-        return Promise.reject(res.status)
-    })
+        })}).then(checkResponse)
 };
 
