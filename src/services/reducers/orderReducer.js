@@ -1,12 +1,12 @@
 import {CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_ERROR} from '../actions/orderActions';
 
 const initialState = {
-    orderNumber: null,
+    orderNumber: '',
     isLoading: false,
     isFail: false
 };
 
-export const orderReduce = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_ORDER_REQUEST:
             return {
@@ -28,5 +28,5 @@ export const orderReduce = (state = initialState, action) => {
             }
         default:
             return state;
-    };
+    }
 };
