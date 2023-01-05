@@ -6,10 +6,13 @@ import Modal from "../Modal/Modal";
 import {createOrder} from "../../Api/api";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import BurgerContext from "../../context/BurgerContext";
+import {createOrderThunk} from "../../services/actions/createThunk";
+import {useDispatch} from "react-redux";
 
 
 const BurgerConstructor = () => {
     const [modalState, setModalState] = useState(false)
+    const dispatch = useDispatch();
     const {ingredients} = useContext(BurgerContext)
     const [id, setId] = useState(null)
 
@@ -22,7 +25,8 @@ const BurgerConstructor = () => {
     function handleCreateOrder() {
         const newIngredient = ingredients.filter(item => item.type !== 'bun').map(ingredient => ingredient._id)
         const Bun = ingredients.filter(item => item.type === 'bun')[0]._id
-        createOrder([Bun, ...newIngredient]).then(data => setId(data.order.number)).then(() => {handleOpenModal()});
+        // createOrder([Bun, ...newIngredient]).then(data => setId(data.order.number)).then(() => {handleOpenModal()});
+        dispatch(createOrderThunk([Bun, ...newIngredient], handleOpenModal))
     }
     function handleOpenModal() {
         setModalState(true)

@@ -1,8 +1,9 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import burgerStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import Ingredient from '../Ingredient/Ingredient'
 import BurgerContext from "../../context/BurgerContext";
+import { useInView } from 'react-intersection-observer';
 
 
 const Tabs =() => {
@@ -22,8 +23,11 @@ const Tabs =() => {
 };
 
 
+
 export const BurgerIngredients = () => {
 const {ingredients} = useContext(BurgerContext);
+
+
 
   return (
     <section className='mt-10'>

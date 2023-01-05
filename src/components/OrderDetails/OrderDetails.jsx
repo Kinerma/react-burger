@@ -2,9 +2,12 @@ import React from 'react';
 import detailsStyles from '../OrderDetails/OrderDetails.module.css'
 import {Modal} from '../Modal/Modal'
 import Done from '../../images/done.svg'
-import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
-const OrderDetails = ({id}) => {
+const OrderDetails = () => {
+
+    const id = useSelector((state) => state.orderReducer.orderNumber)
+
     return (
         <div className={`pr-25 pl-25  ${detailsStyles.modal}`}>
           <p className={`text text_type_digits-large pt-30`}>{id}</p>
@@ -14,10 +17,6 @@ const OrderDetails = ({id}) => {
           <p className={`text text_type_main-default text_color_inactive mt-2 mb-30`}>Дождитесь готовности на орбитальной станции</p>
         </div>
     );
-};
-
-OrderDetails.propTypes = {
-    id: PropTypes.number.isRequired
 };
 
 export default OrderDetails;
