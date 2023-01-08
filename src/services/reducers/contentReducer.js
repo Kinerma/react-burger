@@ -4,7 +4,7 @@ const initialState = {
     currentIngredient: null
 };
 
-export const contentReduce = (state = initialState, action) => {
+export const contentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_INGREDIENTS_MODAL:
             return {

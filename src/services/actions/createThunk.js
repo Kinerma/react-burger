@@ -1,5 +1,5 @@
 
-import {BASE_URL_INGREDIENTS, createOrder} from '../../Api/api'
+import {createOrder, getIngredient} from '../../Api/api'
 import {GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS, GET_INGREDIENT_ERROR} from './ingredientsActions';
 import {CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_ERROR} from './orderActions'
 import {CONSTRUCTOR_RESET} from './constructorActions'
@@ -9,14 +9,13 @@ export const createIngredientsThunk = () => {
         dispatch({
             type: GET_INGREDIENT_REQUEST
         });
-        fetch(BASE_URL_INGREDIENTS)
+        getIngredient()
             .then((res) => {
-                if (res) {
+                console.log(res)
                     dispatch({
                         type: GET_INGREDIENT_SUCCESS,
                         payload: res.data,
                     })
-                }
             })
             .catch(() => {
                 dispatch({

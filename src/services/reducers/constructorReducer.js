@@ -5,7 +5,7 @@ const initialState = {
     ingredients: [],
 };
 
-export const constructorReduce = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR:
             if (action.payload.type === 'bun') {

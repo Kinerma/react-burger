@@ -4,12 +4,17 @@ import ingredientStyle from '../Ingredient/Ingredient.module.css'
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {ingredientType} from "../../utils/typesIngredients";
+import {useDispatch} from "react-redux";
+import {ADD_INGREDIENTS_MODAL} from "../../services/actions/modalActions";
 
 
 const Ingredient = ({ingredient}) => {
     const [modalState, setModalState] = useState(false)
+    const dispatch = useDispatch();
+
     function handleOpenModal() {
-      setModalState(true)
+      dispatch({type: ADD_INGREDIENTS_MODAL, payload: ingredient})
+        setModalState(true)
     }
     function handleCloseModal() {
         setModalState(false)

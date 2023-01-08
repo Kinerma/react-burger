@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from '../BurgerElements/BurgerElements.module.css'
-import BurgerContext from "../../context/BurgerContext";
+import {useSelector} from "react-redux";
 
 
 const BurgerElements = () => {
-    const {ingredients} = useContext(BurgerContext)
+    const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
     const bunList = ingredients.filter(ingredient => ingredient.type === 'bun')
 
     return (
