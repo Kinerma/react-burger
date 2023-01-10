@@ -5,7 +5,7 @@ import {ingredientsReducer} from "./ingredientsReducer";
 import {orderReducer} from "./orderReducer";
 
 const rootReducer = combineReducers({
-    constructorReduce: constructorReducer,
+    constructorReducer,
     contentReducer,
     ingredientsReducer,
     orderReducer

@@ -6,6 +6,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {ingredientType} from "../../utils/typesIngredients";
 import {useDispatch} from "react-redux";
 import {ADD_INGREDIENTS_MODAL} from "../../services/actions/modalActions";
+import {useDrag} from "react-dnd";
 
 
 const Ingredient = ({ingredient}) => {
@@ -19,8 +20,14 @@ const Ingredient = ({ingredient}) => {
     function handleCloseModal() {
         setModalState(false)
     }
+
+    const [,dragRef] = useDrag({
+        type: 'ingredient',
+        item:ingredient,
+    })
+
     return (
-      <div className={`ml-4 mr-2 mt-6 mb-8 ${ingredientStyle.ingredient}`}>
+      <div className={`ml-4 mr-2 mt-6 mb-8 ${ingredientStyle.ingredient}`} ref={dragRef}>
           <img src={ingredient.image} alt={ingredient.name} className={`pl-4 pr-4 ${ingredientStyle.image}`} onClick={handleOpenModal} />
           <div className={`p-1 ${ingredientStyle.price}`}>
               <p className={`text text_type_digits-default`}>{ingredient.price}</p>

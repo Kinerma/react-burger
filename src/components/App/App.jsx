@@ -5,6 +5,8 @@ import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import {createIngredientsThunk} from "../../services/actions/createThunk";
 import {useDispatch, useSelector} from "react-redux";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
     const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
@@ -17,8 +19,10 @@ function App() {
     <div className={appStyles.app}>
       <AppHeader/>
         {ingredients.length && <main className={appStyles.main}>
-              <BurgerIngredients />
-              <BurgerConstructor />
+            <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider>
         </main>}
     </div>
   );

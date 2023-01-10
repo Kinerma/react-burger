@@ -1,7 +1,7 @@
 import {ADD_INGREDIENT_CONSTRUCTOR, CONSTRUCTOR_DELETE, CONSTRUCTOR_RESET, CONSTRUCTOR_REORDER} from '../actions/constructorActions';
 
 const initialState = {
-    bun: false,
+    bun: null,
     ingredients: [],
 };
 
@@ -16,16 +16,16 @@ export const constructorReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                ingredients: [...state.ingredients, action.payload]
+                ingredients: [...state.ingredients, {cardId: Date.now(), ...action.payload}]
             }
         case CONSTRUCTOR_DELETE:
             return {
                 ...state,
-                ingredients: [...state.ingredients.filter((item) => item.key !==action.payload)],
+                ingredients: [...state.ingredients.filter((item) => item.cardId !==action.payload)],
             }
         case CONSTRUCTOR_RESET:
              return {
-                 bun: false,
+                 bun: null,
                  ingredients: []
              }
         case CONSTRUCTOR_REORDER:

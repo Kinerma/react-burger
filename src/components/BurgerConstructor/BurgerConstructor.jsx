@@ -8,21 +8,22 @@ import {createOrderThunk} from "../../services/actions/createThunk";
 import {useDispatch, useSelector} from "react-redux";
 
 
+
 const BurgerConstructor = () => {
     const [modalState, setModalState] = useState(false)
     const dispatch = useDispatch();
-    const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
+    const ingredients = useSelector((state) => state.constructorReducer);
     const [id, setId] = useState(null)
 
     function burgerPrice(ingredients) {
-        const bunPrice = ingredients.filter((ingredient) =>ingredient.type === 'bun')[0].price * 2
-        const ingredientPrice = ingredients.filter((ingredient) =>ingredient.type !== 'bun').reduce((a,b) => a + b.price, 0)
+        const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
+        const ingredientPrice = ingredients.ingredients.reduce((a,b) => a + b.price, 0)
         return bunPrice + ingredientPrice
     };
 
     function handleCreateOrder() {
-        const newIngredient = ingredients.filter(item => item.type !== 'bun').map(ingredient => ingredient._id)
-        const Bun = ingredients.filter(item => item.type === 'bun')[0]._id
+        const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
+        const Bun = ingredients.ingredients._id
         dispatch(createOrderThunk([Bun, ...newIngredient], handleOpenModal))
     }
     function handleOpenModal() {

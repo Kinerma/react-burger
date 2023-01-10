@@ -11,7 +11,6 @@ export const createIngredientsThunk = () => {
         });
         getIngredient()
             .then((res) => {
-                console.log(res)
                     dispatch({
                         type: GET_INGREDIENT_SUCCESS,
                         payload: res.data,
