@@ -1,14 +1,11 @@
-.bun {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
+
 
 .element {
     width: 576px;
     max-width: 600px;
     max-height: 478px;
     overflow-y: scroll;
+    height: 478px;
 }
 
 .element::-webkit-scrollbar {

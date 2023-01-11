@@ -30,7 +30,7 @@ export const constructorReducer = (state = initialState, action) => {
              }
         case CONSTRUCTOR_REORDER:
             const ingredients = [...state.ingredients]
-            ingredients.splice(action.hoverIndex, 0, ingredients.splice(action.dragIndex, 1)[0])
+            ingredients.splice(action.payload.hoverIndex, 0, ingredients.splice(action.payload.dragIndex, 1)[0])
             return {
                 ...state,
                 ingredients: ingredients

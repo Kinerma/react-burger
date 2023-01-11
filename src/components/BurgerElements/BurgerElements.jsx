@@ -1,7 +1,9 @@
 import React from 'react';
-import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from '../BurgerElements/BurgerElements.module.css'
+import ConstructorElements from '../ConstructorElements/ConstructorElements'
 import {useDispatch, useSelector} from "react-redux";
+import iconBun from '../../images/bun-icon.png'
 import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT_CONSTRUCTOR, CONSTRUCTOR_DELETE} from "../../services/actions/constructorActions";
 
@@ -18,6 +20,7 @@ const BurgerElements = () => {
         }
     })
 
+
     const dropHandler = (ingredient) => {
             dispatch({type: ADD_INGREDIENT_CONSTRUCTOR, payload:ingredient})
     }
@@ -30,21 +33,13 @@ const BurgerElements = () => {
                   isLocked={true}
                   text={`${ingredients.bun ? ingredients.bun.name : 'Выберите булку'} (верх)`}
                   price={ingredients.bun ? ingredients.bun.price : 0}
-                  thumbnail={ingredients.bun ? ingredients.bun.image : ''}
+                  thumbnail={ingredients.bun ? ingredients.bun.image : iconBun}
               />
             </div>
             <div className={`mt-4 pr-2 ${elementStyles.element}`}>
-              {ingredients.ingredients.map((ingredient) => {
+              {ingredients.ingredients.map((ingredient, index) => {
                   return (
-                    <div className={`mb-4 ${elementStyles.bun}`}  key={ingredient.cardId}>
-                      <DragIcon type={"primary"} />
-                      <ConstructorElement
-                         text={ingredient.name}
-                         thumbnail={ingredient.image}
-                         price={ingredient.price}
-                         handleClose={() => deleteElement(ingredient.cardId)}
-                      />
-                    </div>
+                    <ConstructorElements key={ingredient.cardId} deleteElement={deleteElement} ingredient={ingredient} index={index} />
                   );
                 })
               }
@@ -55,7 +50,7 @@ const BurgerElements = () => {
                   isLocked={true}
                   text={`${ingredients.bun ? ingredients.bun.name : 'Выберите булку'} (низ)`}
                   price={ingredients.bun ? ingredients.bun.price : 0}
-                  thumbnail={ingredients.bun ? ingredients.bun.image : ''}
+                  thumbnail={ingredients.bun ? ingredients.bun.image : iconBun}
               />
             </div>
         </div>

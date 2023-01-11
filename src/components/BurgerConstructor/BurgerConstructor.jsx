@@ -19,7 +19,7 @@ const BurgerConstructor = () => {
         const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
         const ingredientPrice = ingredients.ingredients.reduce((a,b) => a + b.price, 0)
         return bunPrice + ingredientPrice
-    };
+    }
 
     function handleCreateOrder() {
         const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
