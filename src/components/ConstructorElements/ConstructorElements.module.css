@@ -1,0 +1,6 @@
+.bun {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    opacity: 0.5;
+}
