@@ -23,8 +23,8 @@ const BurgerConstructor = () => {
 
     function handleCreateOrder() {
         const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
-        const Bun = ingredients.ingredients._id
-        dispatch(createOrderThunk([Bun, ...newIngredient], handleOpenModal))
+        const Bun = ingredients.bun._id
+        dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal))
     }
     function handleOpenModal() {
         setModalState(true)
@@ -40,7 +40,7 @@ const BurgerConstructor = () => {
               <p className={`text text_type_digits-medium`}>{burgerPrice(ingredients)}</p>
               <CurrencyIcon type={"primary"} />
             </div>
-            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder}>
+            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder} disabled={ingredients.bun ? false : true}>
               Оформить заказ
             </Button>
           </div>

@@ -26,7 +26,7 @@ const BurgerElements = () => {
     }
 
     return (
-        <div className={`ml-4`} ref={dropContainerRef}>
+        <div className='ml-4' ref={dropContainerRef}>
             <div className={`pl-8`}>
               <ConstructorElement
                   type="top"
