@@ -12,5 +12,6 @@
 
 .ingredient {
   max-width: 272px;
+    position: relative;
 }
 

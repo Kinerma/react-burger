@@ -1,55 +1,61 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from '../BurgerElements/BurgerElements.module.css'
-import {ingredientType} from "../../utils/typesIngredients";
+import ConstructorElements from '../ConstructorElements/ConstructorElements'
+import {useDispatch, useSelector} from "react-redux";
+import iconBun from '../../images/bun-icon.png'
+import {useDrop} from "react-dnd";
+import {ADD_INGREDIENT_CONSTRUCTOR, CONSTRUCTOR_DELETE} from "../../services/actions/constructorActions";
 
 
-const BurgerElements = ({ingredients}) => {
-    const bunList = ingredients.filter(ingredient => ingredient.type === 'bun')
+const BurgerElements = () => {
+    const ingredients = useSelector((state) => state.constructorReducer);
+    const dispatch = useDispatch();
+    const deleteElement = (cardId) => dispatch({type: CONSTRUCTOR_DELETE, payload: cardId})
+
+    const [, dropContainerRef] = useDrop({
+        accept: 'ingredient',
+        drop(item) {
+            dropHandler(item)
+        }
+    })
+
+
+    const dropHandler = (ingredient) => {
+            dispatch({type: ADD_INGREDIENT_CONSTRUCTOR, payload:ingredient})
+    }
 
     return (
-        <div className={`ml-4`}>
+        <div className='ml-4' ref={dropContainerRef}>
             <div className={`pl-8`}>
               <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={`${bunList[0].name} (верх)`}
-                  price={bunList[0].price}
-                  thumbnail={bunList[0].image}
+                  text={`${ingredients.bun ? ingredients.bun.name : 'Выберите булку'} (верх)`}
+                  price={ingredients.bun ? ingredients.bun.price : 0}
+                  thumbnail={ingredients.bun ? ingredients.bun.image : iconBun}
               />
             </div>
             <div className={`mt-4 pr-2 ${elementStyles.element}`}>
-              {ingredients.map((ingredient) => {
-                if (ingredient.type !== 'bun') {
+              {ingredients.ingredients.map((ingredient, index) => {
                   return (
-                    <div className={`mb-4 ${elementStyles.bun}`}  key={ingredient._id}>
-                      <DragIcon type={"primary"} />
-                      <ConstructorElement
-                         text={ingredient.name}
-                         thumbnail={ingredient.image}
-                         price={ingredient.price}
-                      />
-                    </div>
+                    <ConstructorElements key={ingredient.cardId} deleteElement={deleteElement} ingredient={ingredient} index={index} />
                   );
-                }
-              })}
+                })
+              }
             </div>
             <div className={`pl-8`}>
               <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${bunList[0].name} (низ)`}
-                  price={bunList[0].price}
-                  thumbnail={bunList[0].image}
+                  text={`${ingredients.bun ? ingredients.bun.name : 'Выберите булку'} (низ)`}
+                  price={ingredients.bun ? ingredients.bun.price : 0}
+                  thumbnail={ingredients.bun ? ingredients.bun.image : iconBun}
               />
             </div>
         </div>
     );
 };
 
-BurgerElements.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
-}
 
 export default BurgerElements;

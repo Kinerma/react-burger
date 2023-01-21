@@ -1,9 +1,13 @@
 import React from 'react';
 import detailsStyles from '../IngredientDetails/IngredientDetails.module.css'
 import {ingredientType} from "../../utils/typesIngredients";
+import {useSelector} from "react-redux";
 
 
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails = () => {
+
+    const ingredient = useSelector((state) => state.contentReducer.currentIngredient)
+
     return (
         <div className={`pt-10 pb-15`}>
             <h2 className={`ml-10 mr-10 text text_type_main-large`}>Детали ингредиента</h2>

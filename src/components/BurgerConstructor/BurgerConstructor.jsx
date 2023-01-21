@@ -1,17 +1,31 @@
 import React, {useState} from 'react';
-import PropTypes from "prop-types";
 import constructorStyles from '../BurgerConstructor/BurgerConstructor.module.css'
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerElements from "../BurgerElements/BurgerElements";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import {ingredientType} from "../../utils/typesIngredients";
+import {createOrderThunk} from "../../services/actions/createThunk";
+import {useDispatch, useSelector} from "react-redux";
 
 
 
-
-const BurgerConstructor = ({ingredients}) => {
+const BurgerConstructor = () => {
     const [modalState, setModalState] = useState(false)
+    const dispatch = useDispatch();
+    const ingredients = useSelector((state) => state.constructorReducer);
+    const [id, setId] = useState(null)
+
+    function burgerPrice(ingredients) {
+        const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
+        const ingredientPrice = ingredients.ingredients.reduce((a,b) => a + b.price, 0)
+        return bunPrice + ingredientPrice
+    }
+
+    function handleCreateOrder() {
+        const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
+        const Bun = ingredients.bun._id
+        dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal))
+    }
     function handleOpenModal() {
         setModalState(true)
     }
@@ -20,23 +34,20 @@ const BurgerConstructor = ({ingredients}) => {
     }
     return (
         <section className={`mt-25 ml-10`}>
-          <BurgerElements ingredients={ingredients} />
-          <div className={`mt-10 mr-4 ${constructorStyles.button}`}>
+            <BurgerElements />
+            <div className={`mt-10 mr-4 ${constructorStyles.button}`}>
             <div className={`mr-10 ${constructorStyles.column}`}>
-              <p className={`text text_type_digits-medium`}>610</p>
+              <p className={`text text_type_digits-medium`}>{burgerPrice(ingredients)}</p>
               <CurrencyIcon type={"primary"} />
             </div>
-            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleOpenModal}>
+            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder} disabled={ingredients.bun ? false : true}>
               Оформить заказ
             </Button>
           </div>
-          {modalState && <Modal handleModalClose={handleCloseModal}><OrderDetails /></Modal>}
+          {modalState && <Modal handleModalClose={handleCloseModal}><OrderDetails id={id} /></Modal>}
         </section>
     );
 };
 
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientType).isRequired
-}
 
 export default BurgerConstructor;
