@@ -1,51 +1,54 @@
 import React from "react";
 import {Logo, ListIcon, ProfileIcon, BurgerIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styleAppHeader from './AppHeader.module.css'
+import {NavLink} from "react-router-dom";
 
-function BurgerConstructor() {
-  return (
-    <button className={`pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${styleAppHeader.button_active} ${styleAppHeader.button}`}>
-      <div className={`mr-2 ${styleAppHeader.container}`}>
-        <BurgerIcon type="primary" />
-      </div>
-      Конструктор
-    </button>
-  );
+
+
+const BurgerConstructor = () => {
+    return (
+        <NavLink to="/" className={`pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${styleAppHeader.button_active} ${styleAppHeader.button}`}>
+            <div className={`mr-2 ${styleAppHeader.container}`}>
+                <BurgerIcon type="primary" />
+            </div>
+            Конструктор
+        </NavLink>
+    );
 };
 
-function OrderFeed() {
-  return (
-    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_order}`}>
-      <div className={`mr-2 ${styleAppHeader.container}`}>
-        <ListIcon type="secondary" />
-      </div>
-      Лента заказов
-    </button>
-  );
+const OrderFeed =() => {
+    return (
+        <NavLink to='/order-feed' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_order}`}>
+            <div className={`mr-2 ${styleAppHeader.container}`}>
+                <ListIcon type="secondary" />
+            </div>
+            Лента заказов
+        </NavLink>
+    );
 };
 
-function PersonalAccount() {
-  return (
-    <button className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
-      <div className={`mr-2 ${styleAppHeader.container}`}>
-        <ProfileIcon type="secondary" />
-      </div>
-      Личный кабинет
-    </button>
+const PersonalAccount = () => {
+    return (
+        <NavLink to='/login' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
+            <div className={`mr-2 ${styleAppHeader.container}`}>
+                <ProfileIcon type="secondary" />
+            </div>
+            Личный кабинет
+        </NavLink>
     );
 };
 
 export const AppHeader = () => {
-  return (
-    <header className={styleAppHeader.header}>
-      <div className={`p-4 ${styleAppHeader.header_navigation}`}>
-        <div className={styleAppHeader.header_bar}>
-          <BurgerConstructor />
-          <OrderFeed />
-          <Logo />
-          <PersonalAccount />
-        </div>
-      </div>
-    </header>
-  );
+    return (
+        <header className={styleAppHeader.header}>
+            <div className={`p-4 ${styleAppHeader.header_navigation}`}>
+                <div className={styleAppHeader.header_bar}>
+                    <BurgerConstructor />
+                    <OrderFeed />
+                    <Logo />
+                    <PersonalAccount />
+                </div>
+            </div>
+        </header>
+    );
 };
