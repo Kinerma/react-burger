@@ -7,8 +7,8 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import MainPage from "../../pages/MainPage/MainPage";
 import Login from "../../pages/Login/Login";
 import Registration from "../../pages/Registration/Registration";
-import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import OrderFeed from "../../pages/OrderFeed/OrderFeed";
 import NotFound from "../../pages/NotFound/NotFound";
 
