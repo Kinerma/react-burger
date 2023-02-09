@@ -1,6 +1,7 @@
 import useToken from "./useToken";
 import Api from '../Api/api';
 
+
 const useController = () => {
     const tokenStorage = useToken()
     const refreshToken = () => Api.renewToken(tokenStorage, updateToken())
