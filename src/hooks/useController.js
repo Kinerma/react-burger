@@ -4,11 +4,11 @@ import Api from '../Api/api';
 
 const useController = () => {
     const tokenStorage = useToken()
-    const refreshToken = () => Api.renewToken(tokenStorage, updateToken())
+    const refreshToken = () => Api.renewToken(tokenStorage.updateToken())
         .then(data => {
-            const {user, access, invigorateToken} = data
-            tokenStorage.installUpdateToken(invigorateToken)
-            tokenStorage.installToken(access)
+            const {user, accessToken, refreshToken} = data
+            tokenStorage.installUpdateToken(refreshToken)
+            tokenStorage.installToken(accessToken)
             return user
         })
         .catch((err) => {
@@ -20,9 +20,9 @@ const useController = () => {
     const getUser = () => Api.getUser(tokenStorage.getToken()).then(data => data.user).catch((err) => expiresToken(err).then(() => getUser()))
     const checkAuthorization = () => getUser()
     const login = (email, password) => Api.login(email, password).then(data => {
-        const {user, access, invigorateToken} = data
-        tokenStorage.installUpdateToken(invigorateToken)
-        tokenStorage.installToken(access)
+        const {user, accessToken, refreshToken} = data
+        tokenStorage.installUpdateToken(refreshToken)
+        tokenStorage.installToken(accessToken)
         return user
     })
     const logout = () => Api.logout(tokenStorage.updateToken())
@@ -33,9 +33,9 @@ const useController = () => {
         })
     const registration = (name, email, password) => Api.registrationUser(name, email, password)
         .then(data => {
-            const {user, access, invigorateToken} = data
-            tokenStorage.installUpdateToken(invigorateToken)
-            tokenStorage.installToken(access)
+            const {user, accessToken, refreshToken} = data
+            tokenStorage.installUpdateToken(refreshToken)
+            tokenStorage.installToken(accessToken)
             return user
         })
     const reset = (email) => Api.reset(email)

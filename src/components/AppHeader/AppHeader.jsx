@@ -29,7 +29,7 @@ const OrderFeed =() => {
 
 const PersonalAccount = () => {
     return (
-        <NavLink to='/login' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
+        <NavLink to='/profile' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
             <div className={`mr-2 ${styleAppHeader.container}`}>
                 <ProfileIcon type="secondary" />
             </div>

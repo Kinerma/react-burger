@@ -1,15 +1,17 @@
 
-import {createOrder, getIngredient} from '../../Api/api'
+import Api from '../../Api/api'
 import {GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS, GET_INGREDIENT_ERROR} from './ingredientsActions';
 import {CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_ERROR} from './orderActions'
 import {CONSTRUCTOR_RESET} from './constructorActions'
+import {assignUser} from "./userActions";
+import useController from "../../hooks/useController";
 
 export const createIngredientsThunk = () => {
     return function (dispatch) {
         dispatch({
             type: GET_INGREDIENT_REQUEST
         });
-        getIngredient()
+        Api.getIngredient()
             .then((res) => {
                     dispatch({
                         type: GET_INGREDIENT_SUCCESS,
@@ -29,7 +31,7 @@ export const createOrderThunk = (data, onCreateCallback) => {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-        createOrder(data)
+        Api.createOrder(data)
             .then((res) => {
                     dispatch({
                         type: CREATE_ORDER_SUCCESS,
@@ -46,5 +48,11 @@ export const createOrderThunk = (data, onCreateCallback) => {
                 })
             })
     }
+}
+
+export const checkUserAuthThunk = () => (dispatch) => {
+    const userController = useController()
+    userController.checkAuthorization()
+        .then(user => dispatch(assignUser(user)))
 }
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/AppHeader'
-import {createIngredientsThunk} from "../../services/actions/createThunk";
+import {checkUserAuthThunk, createIngredientsThunk} from "../../services/actions/createThunk";
 import {useDispatch} from "react-redux";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import MainPage from "../../pages/MainPage/MainPage";
@@ -11,12 +11,15 @@ import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import OrderFeed from "../../pages/OrderFeed/OrderFeed";
 import NotFound from "../../pages/NotFound/NotFound";
+import Profile from "../../pages/Profile/Profile";
+import Autorization from "../../pages/Autorization/Autorization";
+import Deauthorization from "../../pages/Deauthorization/Deauthorization";
 
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(createIngredientsThunk())
-
+      dispatch(checkUserAuthThunk())
     }, [])
 
   return (
@@ -26,11 +29,12 @@ function App() {
                   <Routes>
                       <Route to='/'>
                           <Route index path="/" element={<MainPage />} />
-                          <Route path='/login' element={<Login />} />
-                          <Route path='/registration' element={<Registration />} />
-                          <Route path='/reset-password' element={<ResetPassword />} />
-                          <Route path='/forgot-password' element={<ForgotPassword />} />
+                          <Route path='/login' element={<Deauthorization><Login /></Deauthorization>} />
+                          <Route path='/registration' element={<Deauthorization><Registration /></Deauthorization>} />
+                          <Route path='/reset-password' element={<Deauthorization><ResetPassword /></Deauthorization>} />
+                          <Route path='/forgot-password' element={<Deauthorization><ForgotPassword /></Deauthorization>} />
                           <Route path='/order-feed' element={<OrderFeed />} />
+                          <Route path='/profile' element={<Autorization><Profile /></Autorization>} />
                           <Route path='*' element={<NotFound />} />
                       </Route>
                   </Routes>
