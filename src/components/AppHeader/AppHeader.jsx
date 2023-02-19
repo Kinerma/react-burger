@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 const BurgerConstructor = () => {
     return (
-        <NavLink to="/" className={`pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${styleAppHeader.button_active} ${styleAppHeader.button}`}>
+        <NavLink to="/" className={ ({isActive}) => `pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${isActive ? styleAppHeader.button_active : ''} ${styleAppHeader.button} `}>
             <div className={`mr-2 ${styleAppHeader.container}`}>
                 <BurgerIcon type="primary" />
             </div>
@@ -18,7 +18,7 @@ const BurgerConstructor = () => {
 
 const OrderFeed =() => {
     return (
-        <NavLink to='/order-feed' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_order}`}>
+        <NavLink to='/order-feed' className={({isActive}) => `ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${isActive ? styleAppHeader.button_active : ''} ${styleAppHeader.button} `}>
             <div className={`mr-2 ${styleAppHeader.container}`}>
                 <ListIcon type="secondary" />
             </div>
@@ -29,7 +29,7 @@ const OrderFeed =() => {
 
 const PersonalAccount = () => {
     return (
-        <NavLink to='/profile' className={`ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default text_color_inactive ${styleAppHeader.button} ${styleAppHeader.button_account}`}>
+        <NavLink to='/profile' className={({isActive}) => `ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${isActive ? styleAppHeader.button_active : ''} ${styleAppHeader.button}`}>
             <div className={`mr-2 ${styleAppHeader.container}`}>
                 <ProfileIcon type="secondary" />
             </div>
@@ -45,7 +45,7 @@ export const AppHeader = () => {
                 <div className={styleAppHeader.header_bar}>
                     <BurgerConstructor />
                     <OrderFeed />
-                    <Logo />
+                    <div className={styleAppHeader.logo}><Logo /></div>
                     <PersonalAccount />
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import {Input, Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import profileStyle from './Profile.module'
-import {NavLink, Route, useLocation, useNavigate} from "react-router-dom";
+import profileStyle from './Profile.module.css'
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {logoutUser} from "../../services/actions/userActions";
@@ -46,21 +46,21 @@ export default function Profile() {
     }, [])
 
     return (
-        <div>
-            <nav>
-                <NavLink replace={true} to={'/profile'}>Профиль</NavLink>
-                <NavLink replace={true} to={'order-feed'}>История заказов</NavLink>
-                <NavLink onClick={logout} to={'/'}>Выход</NavLink>
-                <p>В этом разделе вы можете изменить свои персональные данные</p>
+        <div className={profileStyle.content}>
+            <nav className={profileStyle.nav}>
+                <NavLink className={`text_color_primary ${profileStyle.link}`} replace={true} to={'/profile'}>Профиль</NavLink>
+                <NavLink className={`text_color_inactive ${profileStyle.link}`} replace={true} to={'order-feed'}>История заказов</NavLink>
+                <NavLink className={`text_color_inactive ${profileStyle.link}`} onClick={logout} to={'/'}>Выход</NavLink>
+                <p className={`text text_type_main-default text_color_inactive ${profileStyle.text}`}>В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
             {location.pathname === '/profile' ?
-                <form onSubmit={submit} onReset={resetUser}>
-                    <Input value={name} onChange={setNameChange} type='text' placeholder='имя' />
-                    <EmailInput value={email} onChange={setEmailChange} type='email' placeholder='email' />
-                    <PasswordInput value={password} onChange={setPasswordChange} type='password' placeholder='пароль' />
-                    <div>
-                        <Button htmlType={'reset'}>Отмена</Button>
-                        <Button htmlType={'submit'}>Сохранить</Button>
+                <form className={profileStyle.form} onSubmit={submit} onReset={resetUser}>
+                    <Input value={name} onChange={setNameChange} type='text' placeholder='Имя' />
+                    <EmailInput value={email} onChange={setEmailChange} type='email' placeholder='Логин' />
+                    <PasswordInput value={password} onChange={setPasswordChange} type='password' placeholder='Пароль' />
+                    <div className={profileStyle.buttons}>
+                        <Button type='primary' size='medium' htmlType={'reset'}>Отмена</Button>
+                        <Button type='primary' size='medium' htmlType={'submit'}>Сохранить</Button>
                     </div>
                 </form>
             :

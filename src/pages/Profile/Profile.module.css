@@ -1,0 +1,43 @@
+.content {
+    margin: 120px auto auto;
+    max-width: 1280px;
+    display: flex;
+    gap: 60px;
+}
+
+.nav {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    height: 64px;
+    border: transparent;
+    text-decoration: none;
+}
+
+.text {
+    margin-top: 80px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    height: 320px;
+    opacity: 0.4;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}

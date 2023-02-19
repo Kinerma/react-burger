@@ -3,6 +3,8 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    color: #8585ad;
+    text-decoration: none;
 }
 
 .button_active {
@@ -37,4 +39,9 @@
 .header_bar {
     display: flex;
     align-items: center;
+}
+
+.logo {
+    margin-left: 132px;
+    margin-right: 289px;
 }
