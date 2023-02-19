@@ -28,7 +28,7 @@ export default function Profile() {
     const submit = (evt) => {
         evt.preventDefault()
         if (editUserData) {
-            userController.updateProfile(name, email, password).then(user => {
+            userController.updateProfile(email, password, name).then(user => {
                 setInitialInform(user)
             })
                 .then(() => resetUser())

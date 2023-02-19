@@ -11,7 +11,13 @@
 }
 
 .ingredient {
-  max-width: 272px;
+    max-width: 272px;
     position: relative;
 }
+
+.link {
+    text-decoration: none;
+    color: #F2F2F3;
+}
+
 

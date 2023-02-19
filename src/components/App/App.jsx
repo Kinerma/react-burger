@@ -14,6 +14,7 @@ import NotFound from "../../pages/NotFound/NotFound";
 import Profile from "../../pages/Profile/Profile";
 import Autorization from "../../pages/Autorization/Autorization";
 import Deauthorization from "../../pages/Deauthorization/Deauthorization";
+import IngredientDetailsId from "../../pages/IngredientDetailsId/IngredientDetailsId";
 
 function App() {
     const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
                           <Route path='/forgot-password' element={<Deauthorization><ForgotPassword /></Deauthorization>} />
                           <Route path='/order-feed' element={<OrderFeed />} />
                           <Route path='/profile' element={<Autorization><Profile /></Autorization>} />
+                          <Route path='/ingredient/:id' element={<IngredientDetailsId />} />
                           <Route path='*' element={<NotFound />} />
                       </Route>
                   </Routes>
