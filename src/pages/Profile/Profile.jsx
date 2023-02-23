@@ -55,13 +55,15 @@ export default function Profile() {
             </nav>
             {location.pathname === '/profile' ?
                 <form className={profileStyle.form} onSubmit={submit} onReset={resetUser}>
-                    <Input value={name} onChange={setNameChange} type='text' placeholder='Имя' />
-                    <EmailInput value={email} onChange={setEmailChange} type='email' placeholder='Логин' />
-                    <PasswordInput value={password} onChange={setPasswordChange} type='password' placeholder='Пароль' />
-                    <div className={profileStyle.buttons}>
+                    <Input value={name} onChange={setNameChange} type='text' />
+                    <EmailInput value={email} onChange={setEmailChange} type='email' />
+                    <PasswordInput value={password} onChange={setPasswordChange} />
+                    {editUserData
+                        &&
+                        <div className={profileStyle.buttons}>
                         <Button type='primary' size='medium' htmlType={'reset'}>Отмена</Button>
                         <Button type='primary' size='medium' htmlType={'submit'}>Сохранить</Button>
-                    </div>
+                    </div>}
                 </form>
             :
                 <h1>История заказов</h1>

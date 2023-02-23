@@ -45,7 +45,7 @@ export const AppHeader = () => {
                 <div className={styleAppHeader.header_bar}>
                     <BurgerConstructor />
                     <OrderFeed />
-                    <div className={styleAppHeader.logo}><Logo /></div>
+                    <NavLink to='/' className={styleAppHeader.logo}><Logo /></NavLink>
                     <PersonalAccount />
                 </div>
             </div>
