@@ -1,30 +1,47 @@
 import React, {useEffect} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/AppHeader'
-import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import {createIngredientsThunk} from "../../services/actions/createThunk";
-import {useDispatch, useSelector} from "react-redux";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import {checkUserAuthThunk, createIngredientsThunk} from "../../services/actions/createThunk";
+import {useDispatch} from "react-redux";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import MainPage from "../../pages/MainPage/MainPage";
+import Login from "../../pages/Login/Login";
+import Registration from "../../pages/Registration/Registration";
+import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../../pages/ResetPassword/ResetPassword";
+import OrderFeed from "../../pages/OrderFeed/OrderFeed";
+import NotFound from "../../pages/NotFound/NotFound";
+import Profile from "../../pages/Profile/Profile";
+import Autorization from "../../pages/Autorization/Autorization";
+import Deauthorization from "../../pages/Deauthorization/Deauthorization";
+import IngredientDetailsId from "../../pages/IngredientDetailsId/IngredientDetailsId";
 
 function App() {
-    const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(createIngredientsThunk())
-
+      dispatch(checkUserAuthThunk())
     }, [])
+
   return (
-    <div className={appStyles.app}>
-      <AppHeader/>
-        {ingredients.length && <main className={appStyles.main}>
-            <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-            </DndProvider>
-        </main>}
-    </div>
+          <div className={appStyles.app}>
+              <BrowserRouter>
+                  <AppHeader />
+                  <Routes>
+                      <Route to='/'>
+                          <Route index path="/" element={<MainPage />} />
+                          <Route path='/login' element={<Deauthorization><Login /></Deauthorization>} />
+                          <Route path='/registration' element={<Deauthorization><Registration /></Deauthorization>} />
+                          <Route path='/reset-password' element={<Deauthorization><ResetPassword /></Deauthorization>} />
+                          <Route path='/forgot-password' element={<Deauthorization><ForgotPassword /></Deauthorization>} />
+                          <Route path='/order-feed' element={<OrderFeed />} />
+                          <Route path='/profile' element={<Autorization><Profile /></Autorization>} />
+                          <Route path='/ingredient/:id' element={<IngredientDetailsId />} />
+                          <Route path='*' element={<NotFound />} />
+                      </Route>
+                  </Routes>
+              </BrowserRouter>
+          </div>
   );
 };
 

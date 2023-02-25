@@ -6,6 +6,8 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import {createOrderThunk} from "../../services/actions/createThunk";
 import {useDispatch, useSelector} from "react-redux";
+import useAuthorization from "../../hooks/useAuthorization";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -14,6 +16,8 @@ const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const ingredients = useSelector((state) => state.constructorReducer);
     const [id, setId] = useState(null)
+    const user = useAuthorization()
+    const navigate = useNavigate()
 
     function burgerPrice(ingredients) {
         const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
@@ -24,7 +28,12 @@ const BurgerConstructor = () => {
     function handleCreateOrder() {
         const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
         const Bun = ingredients.bun._id
-        dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal))
+        if (user.isAuth) {
+            dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal))
+        }
+        else {
+            navigate('/login')
+        }
     }
     function handleOpenModal() {
         setModalState(true)
@@ -32,6 +41,7 @@ const BurgerConstructor = () => {
     function handleCloseModal() {
         setModalState(false)
     }
+
     return (
         <section className={`mt-25 ml-10`}>
             <BurgerElements />
