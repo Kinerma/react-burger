@@ -9,7 +9,7 @@ import Login from "../../pages/Login/Login";
 import Registration from "../../pages/Registration/Registration";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
-import OrderFeed from "../../pages/OrderFeed/OrderFeed";
+import Feed from "../../pages/Feed/Feed";
 import NotFound from "../../pages/NotFound/NotFound";
 import Profile from "../../pages/Profile/Profile";
 import Autorization from "../../pages/Autorization/Autorization";
@@ -34,7 +34,7 @@ function App() {
                           <Route path='/registration' element={<Deauthorization><Registration /></Deauthorization>} />
                           <Route path='/reset-password' element={<Deauthorization><ResetPassword /></Deauthorization>} />
                           <Route path='/forgot-password' element={<Deauthorization><ForgotPassword /></Deauthorization>} />
-                          <Route path='/order-feed' element={<OrderFeed />} />
+                          <Route path='/order-feed' element={<Feed />} />
                           <Route path='/profile' element={<Autorization><Profile /></Autorization>} />
                           <Route path='/ingredient/:id' element={<IngredientDetailsId />} />
                           <Route path='*' element={<NotFound />} />
