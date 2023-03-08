@@ -1,6 +1,6 @@
 import {Input, Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profileStyle from './Profile.module.css'
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {logoutUser} from "../../services/actions/userActions";
@@ -66,7 +66,7 @@ export default function Profile() {
                     </div>}
                 </form>
             :
-                <h1>История заказов</h1>
+                <Outlet />
             }
         </div>
     )

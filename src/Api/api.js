@@ -20,7 +20,7 @@ class Api {
         return fetch(endpoint, settings).then(checkResponse)
     }
     getIngredient = () => this.makeRequest(`${this.basicUrl}/api/ingredients`,"GET")
-    createOrder = (ingredientIdtList) => this.makeRequest(`${this.basicUrl}/api/orders`,"POST",{ingredients: ingredientIdtList})
+    createOrder = (ingredientIdtList, token) => this.makeRequest(`${this.basicUrl}/api/orders`,"POST",{ingredients: ingredientIdtList}, token)
     registrationUser = (name,email,password) => this.makeRequest(`${this.basicUrl}/api/auth/register`,"POST",{name, password, email})
     login = (email,password) => this.makeRequest(`${this.basicUrl}/api/auth/login`,"POST",{password, email})
     renewToken = (refreshToken) => this.makeRequest(`${this.basicUrl}/api/auth/token`,"POST",{token: refreshToken})
@@ -29,6 +29,11 @@ class Api {
     reset = (email) => this.makeRequest(`${this.basicUrl}/api/password-reset`,"POST",{email})
     resetAccept = (password,code) => this.makeRequest(`${this.basicUrl}/api/password-reset/reset`,"POST",{password,token: code})
     updateUser = (updateUser,token) => this.makeRequest(`${this.basicUrl}/api/auth/user`,"PATCH",updateUser,token)
+}
+
+export const webSocketToken = {
+    ordersUrl: "wss://norma.nomoreparties.space/orders/all",
+    useUrl: (token) => `wss://norma.nomoreparties.space/orders?token=${token}`
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

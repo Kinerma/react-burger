@@ -26,12 +26,12 @@ export const createIngredientsThunk = () => {
     }
 }
 
-export const createOrderThunk = (data, onCreateCallback) => {
+export const createOrderThunk = (data, onCreateCallback, token) => {
     return function (dispatch) {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-        Api.createOrder(data)
+        Api.createOrder(data, token)
             .then((res) => {
                     dispatch({
                         type: CREATE_ORDER_SUCCESS,
