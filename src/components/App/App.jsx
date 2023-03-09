@@ -19,6 +19,8 @@ import {OrderProfile} from "../../pages/OrderProfile/OrderProfile";
 import Modal from "../Modal/Modal";
 import OrderInfo from "../OrderInfo/OrderInfo";
 import NotFound from "../../pages/NotFound/NotFound";
+import ModalDetails from "../ModalDetails/ModalDetails";
+
 
 function App() {
     const dispatch = useDispatch();
@@ -34,7 +36,11 @@ function App() {
                   <AppHeader />
                   <Routes>
                       <Route to='/'>
-                          <Route index path="/" element={<MainPage />} />
+                          <Route path="/" element={<MainPage/>}>
+                              {location.state?.from === "/"
+                                  &&
+                                  <Route path={"/ingredient/:id"} element={<ModalDetails ingredientDetails={location.state.ingredient}/>} />}
+                          </Route>
                           <Route path='/login' element={<Deauthorization><Login /></Deauthorization>} />
                           <Route path='/registration' element={<Deauthorization><Registration /></Deauthorization>} />
                           <Route path='/reset-password' element={<Deauthorization><ResetPassword /></Deauthorization>} />
@@ -53,7 +59,7 @@ function App() {
                           </Route>
                           <Route path='/profile/feed/:id' element={<Order />} />
                           <Route path='/feed/:id' element={<Order />} />
-                          <Route path="/profile/orders/:id" element={<Order />}/>
+                          <Route path="/profile/orders/:id" element={<Autorization><Order /></Autorization>}/>
                           <Route path='/ingredient/:id' element={<IngredientDetailsId />} />
                           <Route path='*' element={<NotFound />} />
                       </Route>

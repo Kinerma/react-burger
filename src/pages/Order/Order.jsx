@@ -1,5 +1,6 @@
 import OrderInfo from '../../components/OrderInfo/OrderInfo'
 import Loader from '../../components/Loader/Loader'
+import orderStyle from '../Order/Order.module.css'
 import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useParams, useLocation} from "react-router-dom";
@@ -38,7 +39,7 @@ const Order = () => {
     return (
         orders
         ?
-        <div>
+        <div className={orderStyle.container}>
             <OrderInfo orderInfo={orders} />
         </div>
         :

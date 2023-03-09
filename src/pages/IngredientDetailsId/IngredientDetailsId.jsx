@@ -18,10 +18,6 @@ export default function IngredientDetailsId() {
     }, [ingredientsReducer.isSuccess])
 
     return (
-        location.state?.from === "/"
-            ?
-            <MainPage />
-            :
             ingredientsReducer.isSuccess ?
             (
                 currentIngredient && (

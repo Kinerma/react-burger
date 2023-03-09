@@ -11,16 +11,7 @@ import {Link} from "react-router-dom";
 
 
 const Ingredient = ({ingredient, getCount}) => {
-    const [modalState, setModalState] = useState(false)
-    const dispatch = useDispatch();
 
-    function handleOpenModal() {
-      dispatch({type: ADD_INGREDIENTS_MODAL, payload: ingredient})
-        setModalState(true)
-    }
-    function handleCloseModal() {
-        setModalState(false)
-    }
 
     const [,dragRef] = useDrag({
         type: 'ingredient',
@@ -28,16 +19,15 @@ const Ingredient = ({ingredient, getCount}) => {
     })
 
     return (
-        <Link className={ingredientStyle.link} to={'/ingredient/'+ingredient._id} state={{from: '/'}}>
+        <Link className={ingredientStyle.link} to={'/ingredient/'+ingredient._id} state={{from: '/', ingredient: ingredient}}>
             <div className={`ml-4 mr-2 mt-6 mb-8 ${ingredientStyle.ingredient}`} ref={dragRef}>
-                <img src={ingredient.image} alt={ingredient.name} className={`pl-4 pr-4`} onClick={handleOpenModal} />
+                <img src={ingredient.image} alt={ingredient.name} className={`pl-4 pr-4`} />
                 <Counter count={getCount(ingredient._id)} />
                 <div className={`p-1 ${ingredientStyle.price}`}>
                     <p className={`text text_type_digits-default`}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <p className={`text text_type_main-default ${ingredientStyle.name}`}>{ingredient.name}</p>
-                {modalState && <Modal handleModalClose={handleCloseModal}><IngredientDetails ingredient={ingredient} /></Modal>}
             </div>
         </Link>
     );
