@@ -27,15 +27,15 @@ export default function Feed() {
     return (
         ingredients.length && orders.length
         ?
-            <div>
+            <div className={feedStyle.container}>
                 <p className={`text text_type_main-large ${feedStyle.text}`}>Лента заказов</p>
-                <div>
-                    <div>
+                <div className={feedStyle.orderContainer}>
+                    <div className={feedStyle.feed}>
                         {orders.map(order => <OrderCard elementPosition={"feed"} orderInfo={order} key={order._id} />)}
                     </div>
-                    <div>
-                        <OrdersComplete completeOrdersId={completeOrder} inWorkOrdersId={statusOrder} />
-                        <OrdersStatus title={"Выполнено за все время:"} count={total} className={"mt-15"} key={"complete_all_time"} />
+                    <div className={"ml-15"}>
+                        <OrdersComplete className={"mt-15"} completeOrdersId={completeOrder} inWorkOrdersId={statusOrder} />
+                        <OrdersStatus  title={"Выполнено за все время:"} count={total} className={"mt-15"} key={"complete_all_time"} />
                         <OrdersStatus title={"Выполнено за сегодня:"} count={totalToday} className={"mt-15"} key={"complete_today"} />
                     </div>
                 </div>

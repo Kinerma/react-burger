@@ -18,7 +18,7 @@ const BurgerConstructor = () => {
 
 const OrderFeed =() => {
     return (
-        <NavLink to='/order-feed' className={({isActive}) => `ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${isActive ? styleAppHeader.button_active : ''} ${styleAppHeader.button} `}>
+        <NavLink to='/feed' className={({isActive}) => `ml-2 pt-4 pb-4 pr-5 pl-5 text text_type_main-default ${isActive ? styleAppHeader.button_active : ''} ${styleAppHeader.button} `}>
             <div className={`mr-2 ${styleAppHeader.container}`}>
                 <ListIcon type="secondary" />
             </div>

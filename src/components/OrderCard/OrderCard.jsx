@@ -3,7 +3,7 @@ import cardStyles from './OrderCard.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import {useData} from '../../hooks/useData'
-import {getData, displayStatus, ingredientType} from "../../utils/typesIngredients";
+import {getData, displayStatus, cardType} from "../../utils/typesIngredients";
 import PropTypes from "prop-types";
 
 const OrderCard = ({elementPosition, orderInfo}) => {
@@ -14,9 +14,9 @@ const OrderCard = ({elementPosition, orderInfo}) => {
     return (
         <Link to={getLink(elementPosition)} className={cardStyles.link}
               state={{from: elementPosition, orderInfo: orderInfo}}>
-            <div className={`pt-6 pb-6 pl-6 pr-6 ${cardStyles.card}`}>
+            <div className={`pt-6 pb-6 pl-6 pr-6 ${cardStyles.container}`}>
                 <div className={cardStyles.info}>
-                    <p className={"text text_type_main-default text_color_primary"}>#{orderInfo.number}</p>
+                    <p className={"text text_type_digits-default text_color_primary"}>#{orderInfo.number}</p>
                     <p className={"text text_type_main-default text_color_inactive"}>{getData(orderInfo.createdAt)}</p>
                 </div>
                 <p className={`text text_type_main-medium text_color_primary mt-6 ${cardStyles.title}`}>{orderInfo.name}</p>
@@ -27,15 +27,16 @@ const OrderCard = ({elementPosition, orderInfo}) => {
                         {
                             orderInfo.ingredients.slice(0, 6)
                                 .map((ingredientId, index) => ingredientId &&
-                                    <div className={cardStyles.ingredientImageContainer}
+                                    <div className={cardStyles.ingredient}
                                          data-count={`+${orderInfo.ingredients.slice(6).length}`}
                                          key={`${orderInfo._id}-${index}-${ingredientId}`}><img
-                                        src={ingredientsData.getIngredientImage(ingredientId)}
-                                        className={cardStyles.ingredientImage} alt={"Картинка ингредиента"}/></div>)
+                                         src={ingredientsData.getIngredientImage(ingredientId)}
+                                         className={cardStyles.ingredientImage} alt={"Картинка ингредиента"}/>
+                                    </div>)
                         }
                     </div>
                     <div className={cardStyles.price}>
-                        <p className={"text text_type_main-default text_color_primary"}>{price}</p>
+                        <p className={"text text_type_digits-default text_color_primary"}>{price}</p>
                         <CurrencyIcon type='primary' />
                     </div>
                 </div>
@@ -46,7 +47,7 @@ const OrderCard = ({elementPosition, orderInfo}) => {
 
 OrderCard.propTypes = {
     elementPosition: PropTypes.oneOf(["feed", "profile"]).isRequired,
-    orderInfo: ingredientType.isRequired
+    orderInfo: cardType.isRequired
 }
 
 export default OrderCard;

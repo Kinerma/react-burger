@@ -6,12 +6,12 @@ import {ingredientType} from "../../utils/typesIngredients";
 
 const OrderItem = ({ingredient,count}) => {
     return (
-        <div>
-            <div>
-                <img src={ingredient.img} alt="Ингредиент" />
+        <div className={itemStyles.container}>
+            <div className={itemStyles.imageContainer}>
+                <img className={itemStyles.image} src={ingredient.image} alt="Ингредиент" />
             </div>
-            <p>{ingredient.name}</p>
-            <p>{count} x {ingredient.price}</p>
+            <p className={`text text_type_main-default text_color_primary ml-4 ${itemStyles.title}`}>{ingredient.name}</p>
+            <p className={`text text_type_digits-default text_color_primary ml-4 ${itemStyles.price}`}>{count} x {ingredient.price}</p>
             <CurrencyIcon type="primary" />
         </div>
     );

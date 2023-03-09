@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import loaderStyle from '../Loader/Loader.module.css'
 
 const Loader = () => {
     const [count,setCount] = useState(['.'])
@@ -18,7 +19,7 @@ const Loader = () => {
     }, [count])
 
     return (
-        <div>
+        <div className={loaderStyle.loader}>
             {isLoaderLimit && <p className='text text_type_main-medium'>Loader{count.join('')}</p>}
         </div>
     );

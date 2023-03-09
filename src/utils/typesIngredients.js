@@ -23,11 +23,16 @@ export const ingredientType = PropTypes.shape({
     "image_mobile": PropTypes.string.isRequired,
     "image_large": PropTypes.string.isRequired,
     "__v": PropTypes.number.isRequired,
+});
+
+export const cardType = PropTypes.shape({
     "ingredients": PropTypes.arrayOf(PropTypes.string.isRequired),
     "createdAt": PropTypes.string.isRequired,
     "status": PropTypes.string.isRequired,
     "number": PropTypes.number.isRequired,
-});
+    "_id": PropTypes.string.isRequired,
+    "name": PropTypes.string.isRequired
+})
 
 export const displayStatus = (status) => {
     switch (status) {

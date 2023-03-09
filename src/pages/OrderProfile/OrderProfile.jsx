@@ -23,7 +23,7 @@ export const OrderProfile = () => {
         }
     }, [])
     return (
-        <div>
+        <div className={orderProfileStyle.container}>
             {orders.map(order => <OrderCard elementPosition={"profile"} orderInfo={order} key={order._id}/> )}
             <Outlet />
         </div>

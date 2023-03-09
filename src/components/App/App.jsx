@@ -18,6 +18,7 @@ import Order from "../../pages/Order/Order";
 import {OrderProfile} from "../../pages/OrderProfile/OrderProfile";
 import Modal from "../Modal/Modal";
 import OrderInfo from "../OrderInfo/OrderInfo";
+import NotFound from "../../pages/NotFound/NotFound";
 
 function App() {
     const dispatch = useDispatch();
@@ -38,16 +39,23 @@ function App() {
                           <Route path='/registration' element={<Deauthorization><Registration /></Deauthorization>} />
                           <Route path='/reset-password' element={<Deauthorization><ResetPassword /></Deauthorization>} />
                           <Route path='/forgot-password' element={<Deauthorization><ForgotPassword /></Deauthorization>} />
-                          <Route path='/order-feed' element={<Feed />}>
-                              {location.state?.from === "feed" && <Route path=":id" element={<Modal handleModalClose={() => navigate(-1)} children={<OrderInfo orderInfo={location.state.orderInfo}/>}/>}/>}
+                          <Route path='/feed' element={<Feed />}>
+                              {location.state?.from === "feed"
+                                  &&
+                                  <Route path=":id" element={<Modal handleModalClose={() => navigate(-1)} children={<OrderInfo orderInfo={location.state.orderInfo}/>}/>} />}
                           </Route>
-                          <Route path='/profile/order-feed/:id' element={<Order />} />
                           <Route path='/profile' element={<Autorization><Profile /></Autorization>}>
-                              <Route path='order-feed' element={<OrderProfile />}>
-                                  {location.state?.from === "profile" && <Route path=":id" element={<Modal handleModalClose={() => navigate(-1)} children={<OrderInfo orderInfo={location.state.orderInfo}/>}/>}/>}
+                              <Route path='orders' element={<OrderProfile />}>
+                                  {location.state?.from === "profile"
+                                      &&
+                                      <Route path=":id" element={<Modal handleModalClose={() => navigate(-1)} children={<OrderInfo orderInfo={location.state.orderInfo}/>}/>} />}
                               </Route>
                           </Route>
+                          <Route path='/profile/feed/:id' element={<Order />} />
+                          <Route path='/feed/:id' element={<Order />} />
+                          <Route path="/profile/orders/:id" element={<Order />}/>
                           <Route path='/ingredient/:id' element={<IngredientDetailsId />} />
+                          <Route path='*' element={<NotFound />} />
                       </Route>
                   </Routes>
           </div>

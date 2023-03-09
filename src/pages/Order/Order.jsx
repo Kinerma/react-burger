@@ -19,21 +19,21 @@ const Order = () => {
     const {id} = useParams()
     const ingredients = useSelector(newIngredientsDefaultSelector)
     const ordersFeed = useSelector(location.pathname.includes("feed") ? webSocketOrdersSelectorNew : webSocketUserSelectorNew)
-    const orders = location.state?.order || ordersFeed.find(order => order._id === id)
+    const orders = ordersFeed.find(order => order._id === id)
     useEffect(() => {
         if (!ingredients.length) dispatch(createIngredientsThunk())
     }, [dispatch, ingredients])
     useEffect(() => {
         if (!ordersFeed.length) {
             if (location.pathname.includes("feed")) {
-                dispatch(webSocketUserConnectAction(webSocketToken.ordersUrl))
+                dispatch(webSocketOrdersConnectAction(webSocketToken.ordersUrl))
                 return () => dispatch(webSocketUserDisconnectAction())
             } else {
-                dispatch(webSocketOrdersConnectAction(webSocketToken.useUrl(token.getToken().replace("Bearer ", ""))))
+                dispatch(webSocketUserConnectAction(webSocketToken.useUrl(token.getToken().replace("Bearer ", ""))))
                 return () => dispatch(webSocketOrdersDisconnectAction())
             }
         }
-    }, [dispatch, location, ordersFeed, token])
+    }, [location])
 
     return (
         orders

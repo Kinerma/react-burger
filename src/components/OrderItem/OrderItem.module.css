@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    align-items: center;
+    width: 608px;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 64px;
+    height: 64px;
+    background: #131316;
+    border-radius: 50%;
+    border: solid 2px #801AB2;
+}
+
+.image {
+    height: 50px;
+}
+
+.title {
+    max-width: 414px;
+    flex-basis: 380px;
+}
+
+.price {
+    margin-right: 9px;
+}
