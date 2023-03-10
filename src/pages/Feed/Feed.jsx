@@ -2,7 +2,6 @@ import feedStyle from './Feed.module.css';
 import React, {useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
-import {createIngredientsThunk} from '../../services/actions/createThunk';
 import {newIngredientsDefaultSelector} from '../../services/selectors/ingredientsSelectors';
 import {webSocketToken} from "../../Api/api";
 import {webSocketOrdersConnectAction, webSocketOrdersDisconnectAction} from "../../services/actions/webSocketOrdersActions";
@@ -16,9 +15,6 @@ export default function Feed() {
     const ingredients = useSelector(newIngredientsDefaultSelector)
     const {total,totalToday,orders} = useSelector(webSocketOrdersReducerSelectorNew)
     const {completeOrder,statusOrder} = useMemo(() => orders.reduce((prev,order) => order.status === "done" ? {...prev, completeOrder: [...prev.completeOrder,order.number]} : {...prev, statusOrder: [...prev.statusOrder,order.number]},{completeOrder: [],statusOrder: []}),[orders])
-    useEffect(() => {
-        if (!ingredients.length) dispatch(createIngredientsThunk())
-    },[ingredients])
     useEffect(() => {
         dispatch(webSocketOrdersConnectAction(webSocketToken.ordersUrl))
         return () => {dispatch(webSocketOrdersDisconnectAction())}

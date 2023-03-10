@@ -7,7 +7,7 @@ const Autorization = ({children}) => {
     const {isAuth, completed, error} = useAuthorization()
     if (!completed && error) {
         return (
-            isAuth ? children : <Navigate to={'/login'} />
+            <Navigate to={'/login'} />
         )
     }
     if (completed) {

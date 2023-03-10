@@ -6,10 +6,8 @@ import {useSelector, useDispatch} from "react-redux";
 import {useParams, useLocation} from "react-router-dom";
 import {webSocketUserConnectAction, webSocketUserDisconnectAction} from '../../services/actions/webSocketUserActions'
 import {webSocketOrdersConnectAction, webSocketOrdersDisconnectAction} from '../../services/actions/webSocketOrdersActions'
-import {createIngredientsThunk} from '../../services/actions/createThunk'
 import {webSocketToken} from '../../Api/api'
 import useToken from '../../hooks/useToken'
-import {newIngredientsDefaultSelector} from '../../services/selectors/ingredientsSelectors'
 import {webSocketOrdersSelectorNew} from '../../services/selectors/webSocketOrdersSelector'
 import {webSocketUserSelectorNew} from '../../services/selectors/webSocketUserSelector'
 
@@ -18,12 +16,9 @@ const Order = () => {
     const location = useLocation()
     const token = useToken()
     const {id} = useParams()
-    const ingredients = useSelector(newIngredientsDefaultSelector)
     const ordersFeed = useSelector(location.pathname.includes("feed") ? webSocketOrdersSelectorNew : webSocketUserSelectorNew)
     const orders = ordersFeed.find(order => order._id === id)
-    useEffect(() => {
-        if (!ingredients.length) dispatch(createIngredientsThunk())
-    }, [dispatch, ingredients])
+
     useEffect(() => {
         if (!ordersFeed.length) {
             if (location.pathname.includes("feed")) {

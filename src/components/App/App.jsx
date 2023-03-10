@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/AppHeader'
 import {checkUserAuthThunk, createIngredientsThunk} from "../../services/actions/createThunk";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import MainPage from "../../pages/MainPage/MainPage";
 import Login from "../../pages/Login/Login";
@@ -20,14 +20,15 @@ import Modal from "../Modal/Modal";
 import OrderInfo from "../OrderInfo/OrderInfo";
 import NotFound from "../../pages/NotFound/NotFound";
 import ModalDetails from "../ModalDetails/ModalDetails";
-
+import {newIngredientsDefaultSelector} from "../../services/selectors/ingredientsSelectors";
 
 function App() {
     const dispatch = useDispatch();
+    const ingredients = useSelector(newIngredientsDefaultSelector);
     const navigate = useNavigate()
     const location = useLocation()
+    useEffect(() => {!ingredients.length && dispatch(createIngredientsThunk())},[ingredients])
     useEffect(() => {
-      dispatch(createIngredientsThunk())
       dispatch(checkUserAuthThunk())
     }, [])
 
