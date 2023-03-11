@@ -3,7 +3,7 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import mainStyle from './MainPage.module.css'
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
-
+import {Outlet} from "react-router-dom";
 
 export default function MainPage() {
     return (
@@ -14,6 +14,7 @@ export default function MainPage() {
                     <BurgerConstructor />
                 </main>
             </DndProvider>
+            <Outlet />
         </>
     );
 }

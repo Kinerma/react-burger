@@ -1,0 +1,35 @@
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.text {
+    margin-right: 280px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.orderContainer {
+    display: flex;
+}
+
+.feed {
+    min-width: 584px;
+    max-height: 870px;
+    min-height: 870px;
+    width: fit-content;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feed::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+}
+
+.feed::-webkit-scrollbar-thumb {
+    height: 250px;
+    background: #8585AD;
+}

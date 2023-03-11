@@ -1,0 +1,44 @@
+.container {
+    margin: 0 auto;
+    width: max-content;
+    z-index: 10;
+    padding: 24px;
+}
+
+.number {
+    text-align: center;
+}
+
+.title {
+    max-width: 640px;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 312px;
+    max-height: 312px;
+    overflow-y: scroll;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    height: 250px;
+    background: #8585AD;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price {
+    display: flex;
+    gap: 8px;
+}

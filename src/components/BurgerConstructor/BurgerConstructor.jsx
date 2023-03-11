@@ -8,6 +8,7 @@ import {createOrderThunk} from "../../services/actions/createThunk";
 import {useDispatch, useSelector} from "react-redux";
 import useAuthorization from "../../hooks/useAuthorization";
 import {useNavigate} from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 
 
@@ -18,6 +19,7 @@ const BurgerConstructor = () => {
     const [id, setId] = useState(null)
     const user = useAuthorization()
     const navigate = useNavigate()
+    const token = useToken()
 
     function burgerPrice(ingredients) {
         const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
@@ -29,7 +31,7 @@ const BurgerConstructor = () => {
         const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
         const Bun = ingredients.bun._id
         if (user.isAuth) {
-            dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal))
+            dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal, token.getToken()))
         }
         else {
             navigate('/login')

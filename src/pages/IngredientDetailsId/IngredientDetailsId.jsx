@@ -3,7 +3,6 @@ import IngredientDetails from "../../components/IngredientDetails/IngredientDeta
 import MainPage from "../MainPage/MainPage";
 import {useParams, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {ingredientsReducer} from "../../services/reducers/ingredientsReducer";
 import {useEffect} from "react";
 import {ADD_INGREDIENTS_MODAL} from "../../services/actions/modalActions";
 
@@ -19,10 +18,6 @@ export default function IngredientDetailsId() {
     }, [ingredientsReducer.isSuccess])
 
     return (
-        location.state?.from === "/"
-            ?
-            <MainPage />
-            :
             ingredientsReducer.isSuccess ?
             (
                 currentIngredient && (

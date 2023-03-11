@@ -1,6 +1,6 @@
 import {Input, Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profileStyle from './Profile.module.css'
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {logoutUser} from "../../services/actions/userActions";
@@ -48,9 +48,9 @@ export default function Profile() {
     return (
         <div className={profileStyle.content}>
             <nav className={profileStyle.nav}>
-                <NavLink className={`text_color_primary ${profileStyle.link}`} replace={true} to={'/profile'}>Профиль</NavLink>
-                <NavLink className={`text_color_inactive ${profileStyle.link}`} replace={true} to={'order-feed'}>История заказов</NavLink>
-                <NavLink className={`text_color_inactive ${profileStyle.link}`} onClick={logout} to={'/'}>Выход</NavLink>
+                <NavLink className={ ({isActive}) => `text text_type_main-default ${isActive ? profileStyle.link_active : ''} ${profileStyle.link}`} replace={true} to={'/profile'}>Профиль</NavLink>
+                <NavLink className={ ({isActive}) => `text text_type_main-default ${isActive ? profileStyle.link_active : ''} ${profileStyle.link}`} replace={true} to={'/profile/orders'}>История заказов</NavLink>
+                <NavLink className={ ({isActive}) => `text text_type_main-default ${isActive ? profileStyle.link_active : ''} ${profileStyle.link}`} onClick={logout} to={'/'}>Выход</NavLink>
                 <p className={`text text_type_main-default text_color_inactive ${profileStyle.text}`}>В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
             {location.pathname === '/profile' ?
@@ -66,7 +66,7 @@ export default function Profile() {
                     </div>}
                 </form>
             :
-                <h1>История заказов</h1>
+                <Outlet />
             }
         </div>
     )

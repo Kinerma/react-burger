@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 844px;
+    max-height: 916px;
+    gap: 24px;
+    overflow-y: scroll;
+    margin-top: 40px;
+}
+
+.container::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+}
+
+.container::-webkit-scrollbar-thumb {
+    height: 250px;
+    background: #8585AD;
+}
