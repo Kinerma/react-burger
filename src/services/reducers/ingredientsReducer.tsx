@@ -1,30 +1,37 @@
-import {GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS, GET_INGREDIENT_ERROR} from '../actions/ingredientsActions';
+import {IngredientsActions, TIngredientsAction} from '../actions/ingredientsActions';
+import {IIngredient} from "../../utils/interface";
 
-const initialState = {
+export interface IInitialState {
+    ingredients: IIngredient[],
+    isLoading: boolean,
+    isFail: boolean,
+    isSuccess: boolean
+}
+
+const defaultState:IInitialState = {
     ingredients: [],
     isLoading: false,
     isFail: false,
     isSuccess: false
-};
+}
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = defaultState, action: TIngredientsAction):IInitialState => {
     switch (action.type) {
-        case GET_INGREDIENT_REQUEST:
+        case IngredientsActions.GET_INGREDIENT_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 isFail: false,
                 isSuccess: false
             }
-        case GET_INGREDIENT_SUCCESS:
+        case IngredientsActions.GET_INGREDIENT_SUCCESS:
             return {
-                ...state,
                 ingredients: action.payload,
                 isLoading: false,
                 isFail: false,
                 isSuccess: true
             }
-        case GET_INGREDIENT_ERROR:
+        case IngredientsActions.GET_INGREDIENT_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -33,5 +40,5 @@ export const ingredientsReducer = (state = initialState, action) => {
             }
         default:
             return state;
-    };
+    }
 };

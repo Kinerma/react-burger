@@ -1,42 +1,45 @@
-import {
-    WEB_SOCKET_USER_LINKING,
-    WEB_SOCKET_USER_DETACH,
-    WEB_SOCKET_USER_ERROR,
-    WEB_SOCKET_USER_ON_MESSAGE
-} from '../actions/webSocketUserActions'
+import {TWebSocketUserAction, WebSocketUserActions} from '../actions/webSocketUserActions'
+import {IOrderType} from "../../utils/interface";
 
-const initialValue = {
+interface IInitialValue {
+    orders: IOrderType[];
+    isOpen: boolean;
+    isError: boolean;
+    isMessage: null | string;
+}
+
+const defaultState:IInitialValue = {
     isOpen: false,
     isError: false,
     isMessage: null,
     orders: [],
 }
 
-export const webSocketUserReducer = (state = initialValue, action) => {
+export const webSocketUserReducer = (state = defaultState, action: TWebSocketUserAction):IInitialValue => {
     // eslint-disable-next-line default-case
     switch (action.type) {
-        case WEB_SOCKET_USER_LINKING:
+        case WebSocketUserActions.WEB_SOCKET_USER_LINKING:
             return {
                 ...state,
                 isOpen: true,
                 isError: false,
                 isMessage: null,
             }
-        case WEB_SOCKET_USER_DETACH:
+        case WebSocketUserActions.WEB_SOCKET_USER_DETACH:
             return {
                 ...state,
                 isOpen: false,
                 isError: false,
                 isMessage: null,
             }
-        case WEB_SOCKET_USER_ERROR:
+        case WebSocketUserActions.WEB_SOCKET_USER_ERROR:
             return {
                 ...state,
                 isOpen: false,
                 isError: true,
                 isMessage: action.payload,
             }
-        case WEB_SOCKET_USER_ON_MESSAGE:
+        case WebSocketUserActions.WEB_SOCKET_USER_ON_MESSAGE:
             return {
                 ...state,
                 isOpen: true,

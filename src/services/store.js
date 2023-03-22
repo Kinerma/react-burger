@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk'
-import rootReducer from './reducers/rootReducer.js';
+import rootReducer from './reducers/rootReducer.ts';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import socketMiddleware from "./middleware/socketMiddleware";
 import {createWSActions} from "./middleware/socketMiddleware";
@@ -11,7 +11,7 @@ import {
     webSocketOrdersOnMassageAction,
     webSocketOrdersLinkingAction,
     webSocketOrdersDetachAction
-} from '../services/actions/webSocketOrdersActions'
+} from './actions/webSocketOrdersActions'
 import {
     WEB_SOCKET_USER_CONNECT,
     WEB_SOCKET_USER_DISCONNECT,
@@ -19,7 +19,7 @@ import {
     webSocketUserOnMassageAction,
     webSocketUserLinkingAction,
     webSocketUserDetachAction
-} from '../services/actions/webSocketUserActions'
+} from './actions/webSocketUserActions'
 
 const wsFeedActions = createWSActions(
     webSocketOrdersErrorAction,

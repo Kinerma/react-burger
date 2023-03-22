@@ -1,11 +1,16 @@
-import {
-    WEB_SOCKET_ORDERS_LINKING,
-    WEB_SOCKET_ORDERS_DETACH,
-    WEB_SOCKET_ORDERS_ERROR,
-    WEB_SOCKET_ORDERS_ON_MESSAGE
-} from '../actions/webSocketOrdersActions'
+import {WebSocketOrdersActions, TWebSocketOrdersAction} from '../actions/webSocketOrdersActions'
+import {IOrderType} from "../../utils/interface";
 
-const initialValue = {
+export interface IInitialValue {
+    isOpen: boolean,
+    isError: boolean,
+    isMessage: null | string,
+    orders: IOrderType[],
+    total: number,
+    totalToday: number,
+}
+
+const defaultState:IInitialValue = {
     isOpen: false,
     isError: false,
     isMessage: null,
@@ -14,33 +19,32 @@ const initialValue = {
     totalToday: 0,
 }
 
-export const webSocketOrdersReducer = (state = initialValue, action) => {
+export const webSocketOrdersReducer = (state = defaultState, action: TWebSocketOrdersAction) => {
     // eslint-disable-next-line default-case
     switch (action.type) {
-        case WEB_SOCKET_ORDERS_LINKING:
+        case WebSocketOrdersActions.WEB_SOCKET_ORDERS_LINKING:
             return {
                 ...state,
                 isOpen: true,
                 isError: false,
                 isMessage: null,
             }
-        case WEB_SOCKET_ORDERS_DETACH:
+        case WebSocketOrdersActions.WEB_SOCKET_ORDERS_DETACH:
             return {
                 ...state,
                 isOpen: false,
                 isError: false,
                 isMessage: null,
             }
-        case WEB_SOCKET_ORDERS_ERROR:
+        case WebSocketOrdersActions.WEB_SOCKET_ORDERS_ERROR:
             return {
                 ...state,
                 isOpen: false,
                 isError: true,
                 isMessage: action.payload,
             }
-        case WEB_SOCKET_ORDERS_ON_MESSAGE:
+        case WebSocketOrdersActions.WEB_SOCKET_ORDERS_ON_MESSAGE:
             return {
-                ...state,
                 isOpen: true,
                 isError: false,
                 isMessage: null,

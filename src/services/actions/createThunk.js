@@ -1,7 +1,7 @@
 
 import Api from '../../Api/api'
 import {GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS, GET_INGREDIENT_ERROR} from './ingredientsActions';
-import {CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, CREATE_ORDER_ERROR} from './orderActions'
+import {createOrderRequest, createOrderSuccess, createOrderError, TOrderAction} from './orderActions'
 import {CONSTRUCTOR_RESET} from './constructorActions'
 import {assignUser, failLoadingUser, startLoadingUser} from "./userActions";
 import useController from "../../hooks/useController";
