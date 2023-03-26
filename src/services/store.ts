@@ -4,7 +4,7 @@ import rootReducer from './reducers/rootReducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import socketMiddleware from "./middleware/socketMiddleware";
 import {IWsActions} from "./middleware/socketMiddleware";
-import {Actions} from "../services/actions/actions";
+import {Actions} from "./actions/actions";
 import {
     WebSocketOrdersActions,
     webSocketOrdersErrorAction,

@@ -18,3 +18,17 @@ export interface IIngredient {
     __v: number;
     _id: string;
 }
+
+export interface IConstructor {
+    _id: string;
+    name: string;
+    image: string;
+    price: number;
+    cartId: number;
+}
+
+export interface IUserAuth {
+    name: string;
+    email: string;
+    password?: string
+}

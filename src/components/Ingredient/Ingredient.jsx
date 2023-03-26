@@ -1,11 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientStyle from '../Ingredient/Ingredient.module.css'
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {ingredientType} from "../../utils/typesIngredients";
-import {useDispatch} from "react-redux";
-import {ADD_INGREDIENTS_MODAL} from "../../services/actions/modalActions";
 import {useDrag} from "react-dnd";
 import {Link} from "react-router-dom";
 

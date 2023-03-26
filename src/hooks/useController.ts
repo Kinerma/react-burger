@@ -1,5 +1,6 @@
-import useToken from "./useToken";
 import Api from '../Api/api';
+import {IUserAuth} from '../utils/interface'
+import useToken from "./useToken";
 
 
 const useController = () => {
@@ -16,10 +17,15 @@ const useController = () => {
             tokenStorage.installUpdateToken(null)
             return Promise.reject(err)
         })
-    const expiresToken = error => error.then(error => error.message.includes('jwt expired') ? refreshToken() : Promise.reject(error))
+    const expiresToken = (error: any) => error.then((error: {message: string | string[] }) => {
+        if (error.message.includes('jwt expired')) {
+            return refreshToken()
+        }
+        return Promise.reject(error)
+    })
     const getUser = () => Api.getUser(tokenStorage.getToken()).then(data => data.user).catch((err) => expiresToken(err).then(() => getUser()))
     const checkAuthorization = () => getUser()
-    const login = (email, password) => Api.login(email, password).then(data => {
+    const login = (email: string, password: string) => Api.login(email, password).then(data => {
         const {user, accessToken, refreshToken} = data
         tokenStorage.installUpdateToken(refreshToken)
         tokenStorage.installToken(accessToken)
@@ -31,19 +37,20 @@ const useController = () => {
             tokenStorage.installUpdateToken(null)
             return null
         })
-    const registration = (name, email, password) => Api.registrationUser(name, email, password)
+    const registration = (name: string, email: string, password: string) => Api.registrationUser(name, email, password)
         .then(data => {
             const {user, accessToken, refreshToken} = data
             tokenStorage.installUpdateToken(refreshToken)
             tokenStorage.installToken(accessToken)
             return user
         })
-    const reset = (email) => Api.reset(email)
-    const resetAccept = (password, code) => Api.resetAccept(password, code)
-    const updateProfile = (email, password, name) => {
-        const userInfo = {email, name}
-        // eslint-disable-next-line no-unused-expressions
-        password !== "" ? userInfo.password = password : false
+    const reset = (email: string) => Api.reset(email)
+    const resetAccept = (password: string, code: string) => Api.resetAccept(password, code)
+    const updateProfile = (email: string, password: string | null, name: string): Promise<IUserAuth> => {
+        const userInfo: IUserAuth = {name, email}
+        if (password){
+            userInfo.password = password
+        }
         return Api.updateUser(userInfo, tokenStorage.getToken()).then(data => data.user).catch((err) => expiresToken(err).then(() => updateProfile(email, password, name)))
     }
     return {checkAuthorization, login, logout, registration, reset, resetAccept, getUser, updateProfile}

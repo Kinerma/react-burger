@@ -3,7 +3,7 @@ import elementStyles from "../ConstructorElements/ConstructorElements.module.css
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
-import {CONSTRUCTOR_REORDER} from "../../services/actions/constructorActions";
+import {ConstructorActions} from "../../services/actions/constructorActions";
 
 const ConstructorElements = ({ingredient, deleteElement, index}) => {
     const dispatch = useDispatch()
@@ -20,7 +20,7 @@ const ConstructorElements = ({ingredient, deleteElement, index}) => {
         accept: 'cartElement',
         hover(item) {
             if (index !== item.index) {
-                dispatch({type:CONSTRUCTOR_REORDER, payload: {dragIndex: item.index, hoverIndex: index}})
+                dispatch({type:ConstructorActions.CONSTRUCTOR_REORDER, payload: {dragIndex: item.index, hoverIndex: index}})
                 item.index = index
             }
         }
