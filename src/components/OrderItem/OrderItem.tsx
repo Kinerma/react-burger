@@ -1,10 +1,14 @@
-import React from "react";
+import React, {FC} from "react";
 import itemStyles from './OrderItem.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/typesIngredients";
+import {IIngredient} from '../../utils/interface'
 
-const OrderItem = ({ingredient,count}) => {
+interface IProps {
+    ingredient: IIngredient;
+    count: number;
+}
+
+const OrderItem:FC<IProps> = ({ingredient,count}) => {
     return (
         <div className={itemStyles.container}>
             <div className={itemStyles.imageContainer}>
@@ -15,11 +19,6 @@ const OrderItem = ({ingredient,count}) => {
             <CurrencyIcon type="primary" />
         </div>
     );
-}
-
-OrderItem.propTypes = {
-    ingredient: ingredientType.isRequired,
-    count: PropTypes.number.isRequired
 }
 
 export default OrderItem

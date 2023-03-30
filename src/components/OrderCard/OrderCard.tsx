@@ -1,15 +1,20 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, FC} from 'react';
 import cardStyles from './OrderCard.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import {useData} from '../../hooks/useData'
-import {getData, displayStatus, cardType} from "../../utils/typesIngredients";
-import PropTypes from "prop-types";
+import {getData, displayStatus} from "../../utils/typesIngredients";
+import {IOrderType} from '../../utils/interface'
 
-const OrderCard = ({elementPosition, orderInfo}) => {
+interface IProps {
+    elementPosition: "profile" | "feed";
+    orderInfo: IOrderType;
+}
+
+const OrderCard:FC<IProps> = ({elementPosition, orderInfo}) => {
     const ingredientsData = useData()
     const price = useMemo(() => orderInfo.ingredients.reduce((a, ingredientId) => ingredientId ? a + ingredientsData.getIngredientPrice(ingredientId) : a, 0), [ingredientsData, orderInfo])
-    const getLink = useCallback((linkPos) => linkPos === "feed" ? `/feed/${orderInfo._id}` : `/profile/orders/${orderInfo._id}`, [orderInfo])
+    const getLink = useCallback((linkPos: typeof elementPosition) => linkPos === "feed" ? `/feed/${orderInfo._id}` : `/profile/orders/${orderInfo._id}`, [orderInfo])
 
     return (
         <Link to={getLink(elementPosition)} className={cardStyles.link}
@@ -44,10 +49,5 @@ const OrderCard = ({elementPosition, orderInfo}) => {
         </Link>
     );
 };
-
-OrderCard.propTypes = {
-    elementPosition: PropTypes.oneOf(["feed", "profile"]).isRequired,
-    orderInfo: cardType.isRequired
-}
 
 export default OrderCard;

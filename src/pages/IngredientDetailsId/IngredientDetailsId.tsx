@@ -1,15 +1,16 @@
 import ingredientStyle from './IngredientDetailsId.module.css'
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import {useParams, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {ModalActions} from "../../services/actions/modalActions";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
+import {useSelectors} from "../../hooks/useSelector";
 
 
 export default function IngredientDetailsId() {
     const {id} = useParams()
-    const dispatch = useDispatch()
-    const ingredientsReducer = useSelector((state) => state.ingredientsReducer)
+    const dispatch = useAppDispatch()
+    const ingredientsReducer = useSelectors((state) => state.ingredientsReducer)
     const currentIngredient = ingredientsReducer.ingredients.find((item) => item._id === id)
     const location = useLocation()
     useEffect(() => {
@@ -17,9 +18,9 @@ export default function IngredientDetailsId() {
     }, [ingredientsReducer.isSuccess])
 
     return (
-            ingredientsReducer.isSuccess ?
+            ingredientsReducer.isSuccess && currentIngredient ?
             (
-                currentIngredient && (
+                  (
                     <div className={ingredientStyle.container}>
                         <IngredientDetails />
                     </div>

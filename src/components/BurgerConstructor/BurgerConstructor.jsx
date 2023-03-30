@@ -9,19 +9,20 @@ import {useDispatch, useSelector} from "react-redux";
 import useAuthorization from "../../hooks/useAuthorization";
 import {useNavigate} from "react-router-dom";
 import useToken from "../../hooks/useToken";
-
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
 
 
 const BurgerConstructor = () => {
     const [modalState, setModalState] = useState(false)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ingredients = useSelector((state) => state.constructorReducer);
     const [id, setId] = useState(null)
     const user = useAuthorization()
     const navigate = useNavigate()
-    const token = useToken()
+    const token = useToken
 
     function burgerPrice(ingredients) {
+        if (!ingredients.length) return 0
         const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
         const ingredientPrice = ingredients.ingredients.reduce((a,b) => a + b.price, 0)
         return bunPrice + ingredientPrice
@@ -31,7 +32,7 @@ const BurgerConstructor = () => {
         const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
         const Bun = ingredients.bun._id
         if (user.isAuth) {
-            dispatch(createOrderThunk([Bun, ...newIngredient, Bun], handleOpenModal, token.getToken()))
+            dispatch(createOrderThunk(ingredients, handleOpenModal, token.getToken()))
         }
         else {
             navigate('/login')
@@ -52,7 +53,7 @@ const BurgerConstructor = () => {
               <p className={`text text_type_digits-medium`}>{burgerPrice(ingredients)}</p>
               <CurrencyIcon type={"primary"} />
             </div>
-            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder} disabled={ingredients.bun ? false : true}>
+            <Button htmlType={"button"} type={"primary"} size={"large"} onClick={handleCreateOrder} disabled={!ingredients.bun}>
               Оформить заказ
             </Button>
           </div>

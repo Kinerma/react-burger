@@ -1,10 +1,10 @@
 import React from 'react';
 import detailsStyles from '../IngredientDetails/IngredientDetails.module.css'
-import {useSelector} from "react-redux";
+import {useSelectors} from "../../hooks/useSelector";
 
 
 const IngredientDetails = () => {
-    const ingredient = useSelector((state) => state.contentReducer.currentIngredient)
+    const ingredient = useSelectors((state) => state.contentReducer.currentIngredient)
 
     return (
         ingredient ?

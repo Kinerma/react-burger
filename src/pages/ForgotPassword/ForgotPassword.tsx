@@ -1,7 +1,7 @@
 import {EmailInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import forgotStyle from './ForgotPassword.module.css'
-import {useState} from "react";
+import {useState, ChangeEvent, FormEvent} from "react";
 import useController from "../../hooks/useController";
 
 export default function ForgotPassword() {
@@ -9,8 +9,8 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState('')
     const userController = useController()
     const navigation = useNavigate()
-    const setEmailChange = evt => setEmail(evt.target.value)
-    const submit = (evt) => {
+    const setEmailChange = (evt:ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)
+    const submit = (evt:FormEvent) => {
         evt.preventDefault()
         if (email) {
             userController.reset(email).then(() => navigation("/reset-password", {state: {from: "/forgot"}}))

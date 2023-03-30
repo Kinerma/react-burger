@@ -2,34 +2,35 @@ import OrderInfo from '../../components/OrderInfo/OrderInfo'
 import Loader from '../../components/Loader/Loader'
 import orderStyle from '../Order/Order.module.css'
 import {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux";
 import {useParams, useLocation} from "react-router-dom";
 import {webSocketUserConnectAction, webSocketUserDisconnectAction} from '../../services/actions/webSocketUserActions'
 import {webSocketOrdersConnectAction, webSocketOrdersDisconnectAction} from '../../services/actions/webSocketOrdersActions'
 import {webSocketToken} from '../../Api/api'
-import useToken from '../../hooks/useToken'
 import {webSocketOrdersSelectorNew} from '../../services/selectors/webSocketOrdersSelector'
 import {webSocketUserSelectorNew} from '../../services/selectors/webSocketUserSelector'
+import {useAppDispatch} from '../../hooks/UseAppDispatch'
+import {useSelectors} from '../../hooks/useSelector'
+import {IOrderType} from '../../utils/interface'
+import useToken from '../../hooks/useToken'
 
 const Order = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const location = useLocation()
-    const token = useToken()
     const {id} = useParams()
-    const ordersFeed = useSelector(location.pathname.includes("feed") ? webSocketOrdersSelectorNew : webSocketUserSelectorNew)
-    const orders = ordersFeed.find(order => order._id === id)
+    const ordersFeed = useSelectors(location.pathname.includes("feed") ? webSocketOrdersSelectorNew : webSocketUserSelectorNew)
+    const orders = ordersFeed.find((order:IOrderType) => order._id === id)
 
     useEffect(() => {
         if (!ordersFeed.length) {
-            if (location.pathname.includes("feed")) {
-                dispatch(webSocketOrdersConnectAction(webSocketToken.ordersUrl))
-                return () => dispatch(webSocketUserDisconnectAction())
-            } else {
-                dispatch(webSocketUserConnectAction(webSocketToken.useUrl(token.getToken().replace("Bearer ", ""))))
-                return () => dispatch(webSocketOrdersDisconnectAction())
+            const isFeed = location.pathname.includes("feed")
+            const action = isFeed ? webSocketOrdersConnectAction(webSocketToken.ordersUrl) : webSocketUserConnectAction(webSocketToken.useUrl(useToken.getToken().replace("Bearer ", "")))
+            const destructionAction = isFeed ? webSocketUserDisconnectAction() : webSocketOrdersDisconnectAction()
+            dispatch(action)
+            return () => {
+                dispatch(destructionAction)
             }
         }
-    }, [location])
+    }, [location, dispatch, orders])
 
     return (
         orders

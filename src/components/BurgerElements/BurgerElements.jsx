@@ -37,7 +37,7 @@ const BurgerElements = () => {
               />
             </div>
             <div className={`mt-4 pr-2 ${elementStyles.element}`}>
-              {ingredients.ingredients.map((ingredient, index) => {
+              {ingredients.ingredients && ingredients.ingredients.map((ingredient, index) => {
                   return (
                     <ConstructorElements key={ingredient.cartId} deleteElement={deleteElement} ingredient={ingredient} index={index} />
                   );

@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import registrationStyle from './Registration.module.css'
 import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
-import {useState} from "react";
+import {useState, ChangeEvent, FormEvent} from "react";
 import {assignUser} from "../../services/actions/userActions";
 
 export default function Registration() {
@@ -13,10 +13,10 @@ export default function Registration() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const setNameChange = evt => setName(evt.target.value)
-    const setEmailChange = evt => setEmail(evt.target.value)
-    const setPasswordChange = evt => setPassword(evt.target.value)
-    const submit = (evt) => {
+    const setNameChange = (evt:ChangeEvent<HTMLInputElement>) => setName(evt.target.value)
+    const setEmailChange = (evt:ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)
+    const setPasswordChange = (evt:ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)
+    const submit = (evt:FormEvent) => {
         evt.preventDefault()
         if (name && email && password) {
             userController.registration(name, email, password).then(user => {

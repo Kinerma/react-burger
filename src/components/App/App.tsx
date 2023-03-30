@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/AppHeader'
 import {checkUserAuthThunk, createIngredientsThunk} from "../../services/actions/createThunk";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import MainPage from "../../pages/MainPage/MainPage";
 import Login from "../../pages/Login/Login";
@@ -21,9 +21,10 @@ import OrderInfo from "../OrderInfo/OrderInfo";
 import NotFound from "../../pages/NotFound/NotFound";
 import ModalDetails from "../ModalDetails/ModalDetails";
 import {newIngredientsDefaultSelector} from "../../services/selectors/ingredientsSelectors";
+import {useAppDispatch} from '../../hooks/UseAppDispatch'
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ingredients = useSelector(newIngredientsDefaultSelector);
     const navigate = useNavigate()
     const location = useLocation()
@@ -36,7 +37,7 @@ function App() {
           <div className={appStyles.app}>
                   <AppHeader />
                   <Routes>
-                      <Route to='/'>
+                      <Route path='/'>
                           <Route path="/" element={<MainPage/>}>
                               {location.state?.from === "/"
                                   &&
@@ -67,6 +68,6 @@ function App() {
                   </Routes>
           </div>
   );
-};
+}
 
 export default App;

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import detailsStyles from '../OrderDetails/OrderDetails.module.css'
-import {Modal} from '../Modal/Modal'
 import Done from '../../images/done.svg'
-import {useSelector} from "react-redux";
+import {IOrderType} from '../../utils/interface'
 
-const OrderDetails = () => {
+interface IProps {
+    id: IOrderType['number']
+}
 
-    const id = useSelector((state) => state.orderReducer.orderNumber)
+const OrderDetails:FC<IProps> = ({id}) => {
 
     return (
         <div className={`pr-25 pl-25  ${detailsStyles.modal}`}>

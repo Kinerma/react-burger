@@ -1,7 +1,8 @@
 import {ModalActions, TModalAction} from '../actions/modalActions';
+import {IIngredient} from "../../utils/interface";
 
 export interface IInitialState {
-    currentIngredient: null | string
+    currentIngredient: null | IIngredient
 }
 const defaultState:IInitialState = {
     currentIngredient: null

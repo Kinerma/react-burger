@@ -1,8 +1,20 @@
-import React from "react";
+import React, {FC} from "react";
 import ordersStyle from './StatusCompletedOrders.module.css'
-import PropTypes from "prop-types";
 
-export function OrdersStatus({title, count}) {
+
+interface IProps {
+    title: string;
+    count: number;
+    className: string
+}
+
+interface IOrderProps {
+    completeOrdersId: number[];
+    inWorkOrdersId: number[];
+    className: string
+}
+
+export const OrdersStatus:FC<IProps> = ({title, count}) => {
     return (
         <div className={ordersStyle.status}>
             <p className={`text text_type_main-medium text_color_primary ${ordersStyle.text}`}>{title}</p>
@@ -11,7 +23,7 @@ export function OrdersStatus({title, count}) {
     );
 }
 
-export function OrdersComplete({completeOrdersId, inWorkOrdersId}) {
+export const OrdersComplete:FC<IOrderProps> = ({completeOrdersId, inWorkOrdersId}) => {
     return (
         <div className={ordersStyle.container}>
             <div className={ordersStyle.complete}>
@@ -28,8 +40,4 @@ export function OrdersComplete({completeOrdersId, inWorkOrdersId}) {
             </div>
         </div>
     );
-}
-OrdersComplete.propTypes = {
-    completeOrdersId: PropTypes.arrayOf(PropTypes.number.isRequired),
-    inWorkOrdersId: PropTypes.arrayOf(PropTypes.number.isRequired),
 }

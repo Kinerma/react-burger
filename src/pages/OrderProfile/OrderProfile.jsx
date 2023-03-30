@@ -10,7 +10,7 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 
 export const OrderProfile = () => {
     const dispatch = useDispatch()
-    const token = useToken()
+    const token = useToken
     const orders = useSelector(webSocketUserSelectorNew)
     useEffect(() => {
         dispatch(webSocketUserConnectAction(webSocketToken.useUrl(token.getToken().split(" ")[1])))

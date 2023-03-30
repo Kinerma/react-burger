@@ -2,7 +2,7 @@ import {Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger
 import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
 import resetStyle from './ResetPassword.module.css'
 import useController from "../../hooks/useController";
-import {useState} from "react";
+import {useState, ChangeEvent, FormEvent} from "react";
 
 export default function ResetPassword() {
     const location = useLocation()
@@ -10,9 +10,9 @@ export default function ResetPassword() {
     const userController = useController()
     const [password, setPassword] = useState('')
     const [code, setCode] = useState('')
-    const setPasswordChange = evt => setPassword(evt.target.value)
-    const setCodeChange = evt => setCode(evt.target.value)
-    const submit = (evt) => {
+    const setPasswordChange = (evt:ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)
+    const setCodeChange = (evt:ChangeEvent<HTMLInputElement>) => setCode(evt.target.value)
+    const submit = (evt:FormEvent) => {
         evt.preventDefault()
         if (password && code) {
             userController.resetAccept(password,code).then(() => navigation("/"))

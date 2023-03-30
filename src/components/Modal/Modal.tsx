@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from "prop-types";
+import React, {useEffect, useState, FC, ReactNode} from 'react';
 import modalStyles from '../Modal/Modal.module.css'
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,7 +6,12 @@ import {createPortal} from "react-dom";
 
 const modalRoot = document.querySelector('#modal');
 
-const Modal = ({children, handleModalClose}) => {
+interface IProps {
+    children: ReactNode;
+    handleModalClose: () => void
+}
+
+const Modal:FC<IProps> = ({children, handleModalClose}) => {
     const [modalState, setModalState] = useState(true)
     function handleClose() {
         setModalState(false)
@@ -16,7 +20,7 @@ const Modal = ({children, handleModalClose}) => {
 
 
     useEffect(() => {
-        function closeByEscape(event) {
+        function closeByEscape(event:KeyboardEvent) {
             if (event.key === 'Escape') {
                 handleClose()
             }
@@ -35,12 +39,7 @@ const Modal = ({children, handleModalClose}) => {
           </div>
           <ModalOverlay onClick={handleClose} />
         </div>
-    ), modalRoot);
-};
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  handleModalClose: PropTypes.func.isRequired
+    ), modalRoot as Element);
 }
 
 export default Modal;

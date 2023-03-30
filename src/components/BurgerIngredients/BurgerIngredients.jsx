@@ -32,7 +32,7 @@ export const BurgerIngredients = () => {
     const ingredientsCount = useMemo(() => {
         const ingredientCount = {}
         if (ingredients.length === 0) return ingredientCount
-        ingredients.forEach((ingredient) => ingredientCount[ingredient._id] = cart.ingredients.filter(cartElement => cartElement._id === ingredient._id).length)
+        ingredients.forEach((ingredient) => ingredientCount[ingredient._id] = cart.items.filter(cartElement => cartElement._id === ingredient._id).length)
         // eslint-disable-next-line no-unused-expressions
         cart.bun ? ingredientCount[cart.bun._id] = 1 : null
         return ingredientCount

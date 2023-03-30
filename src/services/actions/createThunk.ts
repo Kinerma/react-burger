@@ -23,7 +23,7 @@ export const createOrderThunk = (cart: IConstructorState, handleOpenModal: () =>
     dispatch(createOrderRequest())
     Api.createOrder(cartItemId, token)
         .then(data => {
-            dispatch(createOrderSuccess(data.orderNumber))
+            dispatch(createOrderSuccess(data.order))
             dispatch(constructorBun(null))
             dispatch(addIngredient([]))
         })

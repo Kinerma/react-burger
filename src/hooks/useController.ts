@@ -4,13 +4,12 @@ import useToken from "./useToken";
 
 
 const useController = () => {
-    const tokenStorage = useToken()
+    const tokenStorage = useToken
     const refreshToken = () => Api.renewToken(tokenStorage.updateToken())
         .then(data => {
-            const {user, accessToken, refreshToken} = data
+            const {accessToken, refreshToken} = data
             tokenStorage.installUpdateToken(refreshToken)
             tokenStorage.installToken(accessToken)
-            return user
         })
         .catch((err) => {
             tokenStorage.installToken(null)

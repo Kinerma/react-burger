@@ -1,13 +1,16 @@
-import React from 'react';
+import {FC} from 'react';
 import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientStyle from '../Ingredient/Ingredient.module.css'
-import {ingredientType} from "../../utils/typesIngredients";
+import {IIngredient} from "../../utils/interface";
 import {useDrag} from "react-dnd";
 import {Link} from "react-router-dom";
 
+interface IProps {
+    ingredient: IIngredient;
+    getCount: (id: string) => number;
+}
 
-const Ingredient = ({ingredient, getCount}) => {
-
+const Ingredient:FC<IProps> = ({ingredient, getCount}) => {
 
     const [,dragRef] = useDrag({
         type: 'ingredient',
@@ -28,9 +31,5 @@ const Ingredient = ({ingredient, getCount}) => {
         </Link>
     );
 };
-
-Ingredient.propTypes = {
-    ingredient: ingredientType.isRequired
-}
 
 export default Ingredient;

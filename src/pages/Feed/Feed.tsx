@@ -1,6 +1,5 @@
 import feedStyle from './Feed.module.css';
 import React, {useEffect, useMemo} from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 import {newIngredientsDefaultSelector} from '../../services/selectors/ingredientsSelectors';
 import {webSocketToken} from "../../Api/api";
@@ -9,30 +8,33 @@ import {webSocketOrdersReducerSelectorNew} from '../../services/selectors/webSoc
 import OrderCard from "../../components/OrderCard/OrderCard";
 import {OrdersComplete, OrdersStatus} from "../../components/StatusCompletedOrders/StatusCompletedOrders";
 import Loader from "../../components/Loader/Loader";
+import {IOrderType} from '../../utils/interface';
+import {useAppDispatch} from '../../hooks/UseAppDispatch';
+import {useSelectors} from '../../hooks/useSelector'
 
 export default function Feed() {
-    const dispatch = useDispatch()
-    const ingredients = useSelector(newIngredientsDefaultSelector)
-    const {total,totalToday,orders} = useSelector(webSocketOrdersReducerSelectorNew)
-    const {completeOrder,statusOrder} = useMemo(() => orders.reduce((prev,order) => order.status === "done" ? {...prev, completeOrder: [...prev.completeOrder,order.number]} : {...prev, statusOrder: [...prev.statusOrder,order.number]},{completeOrder: [],statusOrder: []}),[orders])
+    const dispatch = useAppDispatch()
+    const ingredients = useSelectors(newIngredientsDefaultSelector)
+    const orderReducer = useSelectors(webSocketOrdersReducerSelectorNew)
+    const {completeOrder,statusOrder} = useMemo(() => orderReducer.orders.reduce((prev:{completeOrder: [], statusOrder: []},order:IOrderType) => order.status === "done" ? {...prev, completeOrder: [...prev.completeOrder,order.number]} : {...prev, statusOrder: [...prev.statusOrder,order.number]},{completeOrder: [],statusOrder: []}),[orderReducer])
     useEffect(() => {
         dispatch(webSocketOrdersConnectAction(webSocketToken.ordersUrl))
         return () => {dispatch(webSocketOrdersDisconnectAction())}
     },[])
 
     return (
-        ingredients.length && orders.length
+        ingredients.length && orderReducer.orders.length
         ?
             <div className={feedStyle.container}>
                 <p className={`text text_type_main-large ${feedStyle.text}`}>Лента заказов</p>
                 <div className={feedStyle.orderContainer}>
                     <div className={feedStyle.feed}>
-                        {orders.map(order => <OrderCard elementPosition={"feed"} orderInfo={order} key={order._id} />)}
+                        {orderReducer.orders.map((order: IOrderType) => <OrderCard elementPosition={"feed"} orderInfo={order} key={order._id} />)}
                     </div>
                     <div className={"ml-15"}>
                         <OrdersComplete className={"mt-15"} completeOrdersId={completeOrder} inWorkOrdersId={statusOrder} />
-                        <OrdersStatus  title={"Выполнено за все время:"} count={total} className={"mt-15"} key={"complete_all_time"} />
-                        <OrdersStatus title={"Выполнено за сегодня:"} count={totalToday} className={"mt-15"} key={"complete_today"} />
+                        <OrdersStatus  title={"Выполнено за все время:"} count={orderReducer.total} className={"mt-15"} key={"complete_all_time"} />
+                        <OrdersStatus title={"Выполнено за сегодня:"} count={orderReducer.totalToday} className={"mt-15"} key={"complete_today"} />
                     </div>
                 </div>
                 <Outlet />

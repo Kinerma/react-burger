@@ -1,7 +1,7 @@
 import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import loginStyle from './Login.module.css'
-import {useState} from "react";
+import {useState, ChangeEvent, FormEvent} from "react";
 import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {assignUser} from "../../services/actions/userActions";
@@ -12,9 +12,9 @@ export default function Login() {
     const userController = useController()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const setEmailChange = evt => setEmail(evt.target.value)
-    const setPasswordChange = evt => setPassword(evt.target.value)
-    const submit = (evt) => {
+    const setEmailChange = (evt:ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)
+    const setPasswordChange = (evt:ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)
+    const submit = (evt: FormEvent) => {
         evt.preventDefault()
         if (email && password) {
             userController.login(email, password).then(user => {
