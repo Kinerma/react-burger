@@ -11,11 +11,10 @@ const defaultState:IConstructorState = {items: [], bun: null}
 export const constructorReducer = (state = defaultState, action:TConstructorAction):IConstructorState => {
     switch (action.type) {
         case ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR:
-            return {...state, items: action.payload}
-        case ConstructorActions.CONSTRUCTOR_RESET:
             return {...state, items: [...state.items, {cartId: Date.now(), ...action.payload}]}
+        case ConstructorActions.CONSTRUCTOR_RESET:
+            return {...state, items: []}
         case ConstructorActions.CONSTRUCTOR_DELETE:
-            // @ts-ignore
             return {...state, items: state.items.filter(item => item.cartId !== action.payload)}
         case ConstructorActions.CONSTRUCTOR_ADD_BUN:
             return {...state, bun: action.payload}

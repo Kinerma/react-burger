@@ -4,7 +4,7 @@ import {Action} from "redux";
 import {RootState} from "../store";
 import {TIngredientsAction, getIngredientRequest, getIngredientSuccess, getIngredientError} from './ingredientsActions';
 import {TOrderAction, createOrderRequest, createOrderSuccess, createOrderError} from './orderActions'
-import {TConstructorAction, addIngredient, constructorBun} from './constructorActions'
+import {TConstructorAction, constructorBun, constructorReset} from './constructorActions'
 import {IConstructorState} from '../reducers/constructorReducer'
 import {TUserAction, failLoadingUser, startLoadingUser, completedDownloadUser} from "./userActions";
 import useController from "../../hooks/useController";
@@ -25,7 +25,7 @@ export const createOrderThunk = (cart: IConstructorState, handleOpenModal: () =>
         .then(data => {
             dispatch(createOrderSuccess(data.order))
             dispatch(constructorBun(null))
-            dispatch(addIngredient([]))
+            dispatch(constructorReset([]))
         })
         .then(() => handleOpenModal())
         .catch((error) => dispatch(createOrderError(error)))

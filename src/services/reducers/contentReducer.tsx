@@ -13,7 +13,7 @@ export const contentReducer = (state = defaultState, action:TModalAction):IIniti
         case ModalActions.ADD_INGREDIENTS_MODAL:
             return {
                 ...state,
-                currentIngredient: null
+                currentIngredient: action.payload
             }
         case ModalActions.DELETE_INGREDIENTS_MODAL:
             return {

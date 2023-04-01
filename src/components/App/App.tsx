@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import appStyles from './App.module.css'
 import {AppHeader} from '../AppHeader/AppHeader'
 import {checkUserAuthThunk, createIngredientsThunk} from "../../services/actions/createThunk";
-import {useSelector} from "react-redux";
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import MainPage from "../../pages/MainPage/MainPage";
 import Login from "../../pages/Login/Login";
@@ -20,18 +19,24 @@ import Modal from "../Modal/Modal";
 import OrderInfo from "../OrderInfo/OrderInfo";
 import NotFound from "../../pages/NotFound/NotFound";
 import ModalDetails from "../ModalDetails/ModalDetails";
-import {newIngredientsDefaultSelector} from "../../services/selectors/ingredientsSelectors";
+import {
+    newIngredientsReducerSelector
+} from "../../services/selectors/ingredientsSelectors";
 import {useAppDispatch} from '../../hooks/UseAppDispatch'
+import {useSelectors} from "../../hooks/useSelector";
+import Loader from "../Loader/Loader";
 
 function App() {
     const dispatch = useAppDispatch();
-    const ingredients = useSelector(newIngredientsDefaultSelector);
+    const {ingredients, isLoading, isFail, isSuccess} = useSelectors(newIngredientsReducerSelector);
     const navigate = useNavigate()
     const location = useLocation()
     useEffect(() => {!ingredients.length && dispatch(createIngredientsThunk())},[ingredients])
     useEffect(() => {
       dispatch(checkUserAuthThunk())
     }, [])
+    if (!isSuccess && !isFail)
+        return <Loader />
 
   return (
           <div className={appStyles.app}>

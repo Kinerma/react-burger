@@ -2,15 +2,16 @@ import React from 'react';
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from '../BurgerElements/BurgerElements.module.css'
 import ConstructorElements from '../ConstructorElements/ConstructorElements'
-import {useDispatch, useSelector} from "react-redux";
 import iconBun from '../../images/bun-icon.png'
 import {useDrop} from "react-dnd";
 import {ConstructorActions} from "../../services/actions/constructorActions";
+import {useSelectors} from "../../hooks/useSelector";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
 
 
 const BurgerElements = () => {
-    const ingredients = useSelector((state) => state.constructorReducer);
-    const dispatch = useDispatch();
+    const ingredients = useSelectors((state) => state.constructorReducer);
+    const dispatch = useAppDispatch();
     const deleteElement = (cardId) => dispatch({type: ConstructorActions.CONSTRUCTOR_DELETE, payload: cardId})
 
     const [, dropContainerRef] = useDrop({
@@ -22,7 +23,9 @@ const BurgerElements = () => {
 
 
     const dropHandler = (ingredient) => {
-            dispatch({type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR, payload:ingredient})
+        if (ingredient.type === 'bun')
+            dispatch({type: ConstructorActions.CONSTRUCTOR_ADD_BUN, payload:ingredient})
+        else dispatch({type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR, payload:ingredient})
     }
 
     return (
@@ -37,7 +40,7 @@ const BurgerElements = () => {
               />
             </div>
             <div className={`mt-4 pr-2 ${elementStyles.element}`}>
-              {ingredients.ingredients && ingredients.ingredients.map((ingredient, index) => {
+              {!!ingredients.items.length && ingredients.items.map((ingredient, index) => {
                   return (
                     <ConstructorElements key={ingredient.cartId} deleteElement={deleteElement} ingredient={ingredient} index={index} />
                   );

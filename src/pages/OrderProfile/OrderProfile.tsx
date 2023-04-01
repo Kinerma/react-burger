@@ -1,17 +1,18 @@
 import orderProfileStyle from '../OrderProfile/OrderProfile.module.css';
 import React, {useEffect} from "react";
 import {Outlet} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import useToken from "../../hooks/useToken";
 import {webSocketToken} from "../../Api/api";
 import {webSocketUserConnectAction, webSocketUserDisconnectAction} from "../../services/actions/webSocketUserActions";
 import {webSocketUserSelectorNew} from "../../services/selectors/webSocketUserSelector";
 import OrderCard from "../../components/OrderCard/OrderCard";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
+import {useSelectors} from "../../hooks/useSelector";
 
 export const OrderProfile = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const token = useToken
-    const orders = useSelector(webSocketUserSelectorNew)
+    const orders = useSelectors(webSocketUserSelectorNew)
     useEffect(() => {
         dispatch(webSocketUserConnectAction(webSocketToken.useUrl(token.getToken().split(" ")[1])))
         return() => {

@@ -5,33 +5,33 @@ import BurgerElements from "../BurgerElements/BurgerElements";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import {createOrderThunk} from "../../services/actions/createThunk";
-import {useDispatch, useSelector} from "react-redux";
 import useAuthorization from "../../hooks/useAuthorization";
 import {useNavigate} from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import {useAppDispatch} from "../../hooks/UseAppDispatch";
+import {useSelectors} from "../../hooks/useSelector";
+import {IConstructorState} from "../../services/reducers/constructorReducer";
 
 
 const BurgerConstructor = () => {
     const [modalState, setModalState] = useState(false)
     const dispatch = useAppDispatch();
-    const ingredients = useSelector((state) => state.constructorReducer);
-    const [id, setId] = useState(null)
+    const order = useSelectors(state => state.orderReducer.orderNumber)
+    const ingredients = useSelectors((state) => state.constructorReducer);
     const user = useAuthorization()
     const navigate = useNavigate()
     const token = useToken
 
-    function burgerPrice(ingredients) {
-        if (!ingredients.length) return 0
+    function burgerPrice(ingredients: IConstructorState) {
+        if (!ingredients.items.length) return 0
         const bunPrice = ingredients.bun ? ingredients.bun.price * 2 : 0
-        const ingredientPrice = ingredients.ingredients.reduce((a,b) => a + b.price, 0)
+        const ingredientPrice = ingredients.items.reduce((a,b) => a + b.price, 0)
         return bunPrice + ingredientPrice
     }
 
     function handleCreateOrder() {
-        const newIngredient = ingredients.ingredients.map(ingredient => ingredient._id)
-        const Bun = ingredients.bun._id
-        if (user.isAuth) {
+
+        if (user.isAuth && ingredients.bun) {
             dispatch(createOrderThunk(ingredients, handleOpenModal, token.getToken()))
         }
         else {
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
               Оформить заказ
             </Button>
           </div>
-          {modalState && <Modal handleModalClose={handleCloseModal}><OrderDetails id={id} /></Modal>}
+          {modalState && order && <Modal handleModalClose={handleCloseModal}><OrderDetails id={order.number} /></Modal>}
         </section>
     );
 };

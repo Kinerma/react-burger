@@ -1,12 +1,19 @@
-import React, {useRef} from "react";
+import React, {useRef, FC} from "react";
 import elementStyles from "../ConstructorElements/ConstructorElements.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
-import {useDispatch} from "react-redux";
-import {ConstructorActions} from "../../services/actions/constructorActions";
+import {constructorReorder} from "../../services/actions/constructorActions";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
+import {IIngredient} from "../../utils/interface";
 
-const ConstructorElements = ({ingredient, deleteElement, index}) => {
-    const dispatch = useDispatch()
+interface IProps {
+    ingredient: IIngredient
+    deleteElement:
+    index:
+}
+
+const ConstructorElements:FC<IProps> = ({ingredient, deleteElement, index}) => {
+    const dispatch = useAppDispatch()
 
     const mainRef = useRef(null)
 
@@ -20,7 +27,7 @@ const ConstructorElements = ({ingredient, deleteElement, index}) => {
         accept: 'cartElement',
         hover(item) {
             if (index !== item.index) {
-                dispatch({type:ConstructorActions.CONSTRUCTOR_REORDER, payload: {dragIndex: item.index, hoverIndex: index}})
+                dispatch(constructorReorder(item.index, index))
                 item.index = index
             }
         }
@@ -29,13 +36,15 @@ const ConstructorElements = ({ingredient, deleteElement, index}) => {
     dragRef(dropRef(mainRef))
 
     return (
-        <div className={`mb-4 ${isDrag && elementStyles.bun}`}  key={ingredient.cardId} ref={mainRef}>
+        <div className={`mb-4 ${isDrag && elementStyles.bun}`}  key={ingredient.cartId} ref={mainRef}>
             <DragIcon type={"primary"} />
             <ConstructorElement
                 text={ingredient.name}
                 thumbnail={ingredient.image}
                 price={ingredient.price}
-                handleClose={() => deleteElement(ingredient.cardId)}
+                handleClose={() => {
+                    deleteElement(ingredient.cartId)
+                }}
             />
         </div>
     )

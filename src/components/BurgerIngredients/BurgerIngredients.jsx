@@ -3,11 +3,11 @@ import burgerStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import Ingredient from '../Ingredient/Ingredient'
 import { useInView } from 'react-intersection-observer';
-import {useSelector} from "react-redux";
+import {useSelectors} from "../../hooks/useSelector";
 
 export const BurgerIngredients = () => {
-    const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
-    const cart = useSelector((state) => state.constructorReducer);
+    const ingredients = useSelectors((state) => state.ingredientsReducer.ingredients);
+    const cart = useSelectors((state) => state.constructorReducer);
 
     const [current, setCurrent] = React.useState('bun');
     function onClick(value) {
@@ -31,7 +31,7 @@ export const BurgerIngredients = () => {
 
     const ingredientsCount = useMemo(() => {
         const ingredientCount = {}
-        if (ingredients.length === 0) return ingredientCount
+        if (!ingredients.length || !cart.items.length) return ingredientCount
         ingredients.forEach((ingredient) => ingredientCount[ingredient._id] = cart.items.filter(cartElement => cartElement._id === ingredient._id).length)
         // eslint-disable-next-line no-unused-expressions
         cart.bun ? ingredientCount[cart.bun._id] = 1 : null

@@ -10,7 +10,7 @@ export enum ConstructorActions {
 
 interface IAddIngredient {
     type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR
-    payload: IConstructor[]
+    payload: IIngredient
 }
 
 interface IConstructorBun {
@@ -20,7 +20,7 @@ interface IConstructorBun {
 
 interface IConstructorReset {
     type: ConstructorActions.CONSTRUCTOR_RESET
-    payload: IIngredient
+    payload: IConstructor[]
 }
 
 interface IConstructorDelete {
@@ -35,8 +35,8 @@ interface IConstructorReorder {
 
 export type TConstructorAction = IAddIngredient | IConstructorBun | IConstructorReset | IConstructorDelete | IConstructorReorder
 
-export const addIngredient = (cart: IConstructor[]):TConstructorAction => ({type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR, payload: cart})
-export const constructorReset = (ingredient: IIngredient):TConstructorAction => ({type: ConstructorActions.CONSTRUCTOR_RESET, payload: ingredient})
+export const addIngredient = (ingredient: IIngredient):TConstructorAction => ({type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR, payload: ingredient})
+export const constructorReset = (cart: IConstructor[]):TConstructorAction => ({type: ConstructorActions.CONSTRUCTOR_RESET, payload: cart})
 export const constructorDelete = (cartId: number):TConstructorAction => ({type: ConstructorActions.CONSTRUCTOR_DELETE, payload: cartId})
 export const constructorBun = (bun:IIngredient | null):TConstructorAction => ({type: ConstructorActions.CONSTRUCTOR_ADD_BUN, payload: bun})
 export const constructorReorder = (prevIndex: number, nextIndex: number):TConstructorAction => ({type: ConstructorActions.CONSTRUCTOR_REORDER, payload: {prevIndex: prevIndex, nextIndex: nextIndex}})

@@ -1,21 +1,21 @@
 import {IngredientsActions, TIngredientsAction} from '../actions/ingredientsActions';
 import {IIngredient} from "../../utils/interface";
 
-export interface IInitialState {
+export interface IIngredientReducer {
     ingredients: IIngredient[],
     isLoading: boolean,
     isFail: boolean,
     isSuccess: boolean
 }
 
-const defaultState:IInitialState = {
+const defaultState:IIngredientReducer = {
     ingredients: [],
     isLoading: false,
     isFail: false,
     isSuccess: false
 }
 
-export const ingredientsReducer = (state = defaultState, action: TIngredientsAction):IInitialState => {
+export const ingredientsReducer = (state = defaultState, action: TIngredientsAction):IIngredientReducer => {
     switch (action.type) {
         case IngredientsActions.GET_INGREDIENT_REQUEST:
             return {

@@ -14,7 +14,9 @@ export default function IngredientDetailsId() {
     const currentIngredient = ingredientsReducer.ingredients.find((item) => item._id === id)
     const location = useLocation()
     useEffect(() => {
-            dispatch({type: ModalActions.ADD_INGREDIENTS_MODAL, payload : ingredientsReducer.ingredients.find((item) => item._id === id)})
+        const ingredient = ingredientsReducer.ingredients.find((item) => item._id === id)
+        if (ingredient)
+            dispatch({type: ModalActions.ADD_INGREDIENTS_MODAL, payload : ingredient})
     }, [ingredientsReducer.isSuccess])
 
     return (
