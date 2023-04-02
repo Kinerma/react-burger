@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import burgerStyles from './BurgerIngredients.module.css'
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import Ingredient from '../Ingredient/Ingredient'
@@ -9,10 +9,10 @@ export const BurgerIngredients = () => {
     const ingredients = useSelectors((state) => state.ingredientsReducer.ingredients);
     const cart = useSelectors((state) => state.constructorReducer);
 
-    const [current, setCurrent] = React.useState('bun');
-    function onClick(value) {
+    const [current, setCurrent] = useState<string>('bun');
+    function onClick(value: string) {
         setCurrent(value)
-        document.querySelector(`#${value}`).scrollIntoView({behavior: "smooth"})
+        document.querySelector(`#${value}`)?.scrollIntoView({behavior: "smooth"})
     }
 
     const [BunRef, inViewBun] = useInView({threshold: 0});
@@ -30,14 +30,13 @@ export const BurgerIngredients = () => {
     }, [inViewBun, inViewSauce, inViewMain])
 
     const ingredientsCount = useMemo(() => {
-        const ingredientCount = {}
+        const ingredientCount: {[key: string]:number} = {}
         if (!ingredients.length || !cart.items.length) return ingredientCount
         ingredients.forEach((ingredient) => ingredientCount[ingredient._id] = cart.items.filter(cartElement => cartElement._id === ingredient._id).length)
-        // eslint-disable-next-line no-unused-expressions
         cart.bun ? ingredientCount[cart.bun._id] = 1 : null
         return ingredientCount
     }, [ingredients, cart])
-    const getCount = (ingredientId) => ingredientsCount[ingredientId]
+    const getCount = (ingredientId:string) => ingredientsCount[ingredientId]
 
   return (
     <section className='mt-10'>

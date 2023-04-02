@@ -1,31 +1,33 @@
 import {Input, Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profileStyle from './Profile.module.css'
 import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {logoutUser} from "../../services/actions/userActions";
-import {useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
 
 export default function Profile() {
     const location = useLocation()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigation = useNavigate()
     const userController = useController()
-    const [initialInform, setInitialInform] = useState(null)
+    const [initialInform, setInitialInform] = useState<{name: string, email: string} | null>(null)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const setNameChange = evt => setName(evt.target.value)
-    const setEmailChange = evt => setEmail(evt.target.value)
-    const setPasswordChange = evt => setPassword(evt.target.value)
+    const setNameChange = (evt:ChangeEvent<HTMLInputElement>) => setName(evt.target.value)
+    const setEmailChange = (evt:ChangeEvent<HTMLInputElement>) => setEmail(evt.target.value)
+    const setPasswordChange = (evt:ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value)
     const logout = () => userController.logout().then(() => dispatch(logoutUser())).then(() => navigation('/login'))
-    const editUserData = initialInform === '' ? false : initialInform?.name !== name || initialInform?.email !== email || password !== ''
+    const editUserData = initialInform === null ? false : initialInform?.name !== name || initialInform?.email !== email || password !== ''
     const resetUser = () => {
-        setName(initialInform.name)
-        setEmail(initialInform.email)
+        if (initialInform) {
+            setName(initialInform.name)
+            setEmail(initialInform.email)
+        }
         setPassword('')
     }
-    const submit = (evt) => {
+    const submit = (evt:FormEvent) => {
         evt.preventDefault()
         if (editUserData) {
             userController.updateProfile(email, password, name).then(user => {
@@ -56,7 +58,7 @@ export default function Profile() {
             {location.pathname === '/profile' ?
                 <form className={profileStyle.form} onSubmit={submit} onReset={resetUser}>
                     <Input value={name} onChange={setNameChange} type='text' />
-                    <EmailInput value={email} onChange={setEmailChange} type='email' />
+                    <EmailInput value={email} onChange={setEmailChange} />
                     <PasswordInput value={password} onChange={setPasswordChange} />
                     {editUserData
                         &&

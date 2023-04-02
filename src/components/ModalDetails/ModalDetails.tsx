@@ -15,7 +15,6 @@ const ModalDetails:FC<IProps> = ({ingredientDetails}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const ingredient = useSelectors(state => state.contentReducer.currentIngredient)
-    console.log(ingredientDetails)
     useEffect(() => {
         dispatch({type: ModalActions.ADD_INGREDIENTS_MODAL, payload: ingredientDetails})
     }, [])

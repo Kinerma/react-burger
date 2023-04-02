@@ -4,12 +4,12 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import {useDrag, useDrop} from "react-dnd";
 import {constructorReorder} from "../../services/actions/constructorActions";
 import {useAppDispatch} from "../../hooks/UseAppDispatch";
-import {IIngredient} from "../../utils/interface";
+import {IConstructor} from "../../utils/interface";
 
 interface IProps {
-    ingredient: IIngredient
-    deleteElement:
-    index:
+    ingredient: IConstructor,
+    deleteElement: (cartId: any) => void,
+    index: number,
 }
 
 const ConstructorElements:FC<IProps> = ({ingredient, deleteElement, index}) => {
@@ -26,8 +26,11 @@ const ConstructorElements:FC<IProps> = ({ingredient, deleteElement, index}) => {
     const [,dropRef] = useDrop({
         accept: 'cartElement',
         hover(item) {
+            // @ts-ignore
             if (index !== item.index) {
+                // @ts-ignore
                 dispatch(constructorReorder(item.index, index))
+                // @ts-ignore
                 item.index = index
             }
         }
@@ -49,6 +52,5 @@ const ConstructorElements:FC<IProps> = ({ingredient, deleteElement, index}) => {
         </div>
     )
 }
-
 
 export default ConstructorElements;

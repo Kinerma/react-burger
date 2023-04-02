@@ -7,22 +7,24 @@ import {useDrop} from "react-dnd";
 import {ConstructorActions} from "../../services/actions/constructorActions";
 import {useSelectors} from "../../hooks/useSelector";
 import {useAppDispatch} from "../../hooks/UseAppDispatch";
+import {IConstructor, IIngredient} from "../../utils/interface";
+
 
 
 const BurgerElements = () => {
     const ingredients = useSelectors((state) => state.constructorReducer);
     const dispatch = useAppDispatch();
-    const deleteElement = (cardId) => dispatch({type: ConstructorActions.CONSTRUCTOR_DELETE, payload: cardId})
+    const deleteElement = (cartId: IConstructor['cartId']) => dispatch({type: ConstructorActions.CONSTRUCTOR_DELETE, payload: cartId})
 
     const [, dropContainerRef] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop(item: IIngredient) {
             dropHandler(item)
         }
     })
 
 
-    const dropHandler = (ingredient) => {
+    const dropHandler = (ingredient: IIngredient) => {
         if (ingredient.type === 'bun')
             dispatch({type: ConstructorActions.CONSTRUCTOR_ADD_BUN, payload:ingredient})
         else dispatch({type: ConstructorActions.ADD_INGREDIENT_CONSTRUCTOR, payload:ingredient})
