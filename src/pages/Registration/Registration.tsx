@@ -1,13 +1,13 @@
 import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import registrationStyle from './Registration.module.css'
-import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {useState, ChangeEvent, FormEvent} from "react";
 import {assignUser} from "../../services/actions/userActions";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
 
 export default function Registration() {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigation = useNavigate()
     const userController = useController()
     const [name, setName] = useState('')

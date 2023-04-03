@@ -2,12 +2,12 @@ import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-b
 import {Link, useNavigate} from "react-router-dom";
 import loginStyle from './Login.module.css'
 import {useState, ChangeEvent, FormEvent} from "react";
-import {useDispatch} from "react-redux";
 import useController from "../../hooks/useController";
 import {assignUser} from "../../services/actions/userActions";
+import {useAppDispatch} from "../../hooks/UseAppDispatch";
 
 export default function Login() {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigation = useNavigate()
     const userController = useController()
     const [email, setEmail] = useState('')
